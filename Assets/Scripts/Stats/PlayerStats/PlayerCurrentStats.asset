@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 791536a3dc20a2748a5054d46979c535, type: 3}
   m_Name: PlayerCurrentStats
   m_EditorClassIdentifier: 
-  baseSODict:
+  baseClassStatsDict:
   - className: warrior
     classSO: {fileID: 11400000, guid: 74a81d547a0e2e548a4cd67b20bb7d78, type: 2}
   - className: thief

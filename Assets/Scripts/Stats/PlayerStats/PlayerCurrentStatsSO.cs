@@ -8,27 +8,30 @@ using UnityEditor;
 using UnityEngine;
 
 [Serializable]
-public class BaseStatsDict
+public class BaseClassStatsDict
 {
     public string className;
     public BaseStatsSO classSO;
 }
 
+
 [CreateAssetMenu(fileName = "PlayerCurrentStats", menuName = "SkilledDater/Stats/Player/PlayerCurrentStats", order = 0)]
 public class PlayerCurrentStatsSO : ScriptableObject
 {
-    [SerializeField] BaseStatsDict[] baseSODict;
+    [SerializeField] BaseClassStatsDict[] baseClassStatsDict;
 
-    public Dictionary<StatTypes, float> instanceStats = new Dictionary<StatTypes, float>();
+    public Dictionary<StatTypes, StatModifier> instanceStats = new Dictionary<StatTypes, StatModifier>();
 
     public void InitalizeStats()
     {
         foreach (StatTypes key in Enum.GetValues(typeof(StatTypes)))
         {
-            instanceStats[key] = 0;
+            StatModifier tmp = new StatModifier(0, StatModTypes.initStats);
+            instanceStats[key] = tmp;
         }
 
-        instanceStats[StatTypes.className] = (float)ClassTypes.none;
+        StatModifier className = new StatModifier((float)ClassTypes.none, StatModTypes.info);
+        instanceStats[StatTypes.className] = className;
 
         UpdateSecondaryStats();
 
@@ -36,11 +39,11 @@ public class PlayerCurrentStatsSO : ScriptableObject
 
     public void SetBaseStats(string className)
     {
-        foreach (var info in baseSODict)
+        foreach (var charClass in baseClassStatsDict)
         {
-            if (info.className == className)
+            if (charClass.className == className)
             {
-                info.classSO.GetBaseStats(instanceStats);
+                charClass.classSO.GetBaseStats(instanceStats);
             }
         }
 
@@ -50,18 +53,18 @@ public class PlayerCurrentStatsSO : ScriptableObject
 
     public void UpdateSecondaryStats()
     {
-        instanceStats[StatTypes.critDamage] = 5 + (float)instanceStats[StatTypes.strength] * (float).3;
+        instanceStats[StatTypes.critDamage].value = 5 + instanceStats[StatTypes.strength].value * (float).3;
     }
 
     public void UpdateBaseStats(StatTypes stat, float value)
     {
-        instanceStats[stat] += value;
+        instanceStats[stat].value += value;
         UpdateSecondaryStats();
     }
     
     public float GetCurrentStat(StatTypes stat)
     {
-        return instanceStats[stat];
+        return instanceStats[stat].value;
     }
 
     public string GetClassName()
