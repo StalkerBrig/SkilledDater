@@ -1,4 +1,6 @@
-public class StatModifier
+using System;
+
+[Serializable] public class StatModifier
 {
     public float value;
     public StatModTypes modType;
@@ -11,6 +13,7 @@ public class StatModifier
         this.modType = modType;
         this.order = order;
         this.source = source;
+        //Add an unlock variable to indicate if unlocked?...
     }
 
     public StatModifier(float value, StatModTypes modType) : this (value, modType, (int)modType, null) { }
@@ -18,6 +21,7 @@ public class StatModifier
     public StatModifier(float value, StatModTypes modType, object source) : this(value, modType, (int)modType, source) { }
 
 }
+
 
 public enum StatTypes
 {

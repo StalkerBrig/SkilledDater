@@ -24,7 +24,7 @@ public class PlayerDisplaySecondaryStats : MonoBehaviour
     //TODO: Get rid of this after making display stats more generic
     public void UpdateStats()
     {
-        critDamage.text = ((int)statSO.GetCurrentStat(StatTypes.critDamage)).ToString()+"%";
+        critDamage.text = ((int)statSO.GetCurrentStatValue(StatTypes.critDamage)).ToString()+"%";
     }
 
 }

@@ -61,17 +61,34 @@ public class PlayerCurrentStatsSO : ScriptableObject
         instanceStats[stat].value += value;
         UpdateSecondaryStats();
     }
-    
-    public float GetCurrentStat(StatTypes stat)
+
+    public void CalculateStats(StatTypes statName, StatModifier statModifier)
+    {
+        //TODO: Need to make this loop through each stat...
+        // This probably means I need to make a list of stats and not just directly update the value
+        instanceStats[statName].value += statModifier.value;
+
+        UpdateSecondaryStats();
+
+    }
+
+    public float GetCurrentStatValue(StatTypes stat)
     {
         return instanceStats[stat].value;
     }
 
+    public StatModifier GetCurrentStat(StatTypes stat)
+    {
+        return instanceStats[stat];
+    }
+
     public string GetClassName()
     {
-        int classNamePre = ((int)GetCurrentStat(StatTypes.className));
+        int classNamePre = ((int)GetCurrentStatValue(StatTypes.className));
         string classNamePost = Enum.GetName(typeof(ClassTypes), classNamePre);
 
         return classNamePost;
     }
+
+    
 }

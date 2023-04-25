@@ -67,7 +67,7 @@ public class PlayerDisplayStatsGen : MonoBehaviour
             }
             else
             {
-                displayStats.statText.text = ((int)statSO.GetCurrentStat(displayStats.statEnum)).ToString();
+                displayStats.statText.text = ((int)statSO.GetCurrentStatValue(displayStats.statEnum)).ToString();
             }
         }
 

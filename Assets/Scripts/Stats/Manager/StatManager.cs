@@ -23,5 +23,19 @@ public class StatManager : MonoBehaviour
         curStatSO.UpdateBaseStats(statName, value);
     }
 
+    public void AddPassiveSkill(SkillStatsSO skillStatSO)
+    {
+        foreach (SkillStatInput stats in skillStatSO.statList)
+        {
+            StatTypes statName = stats.statName;
+            float value = stats.value;
+            StatModTypes modType = stats.modType;
+
+            StatModifier addStats = new StatModifier(value: value, modType: modType);
+
+            curStatSO.CalculateStats(statName, addStats);
+        }
+    }
+
 
 }

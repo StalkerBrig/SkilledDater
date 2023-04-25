@@ -33,16 +33,16 @@ public class PlayerDisplayStats : MonoBehaviour
     //TODO: Make this more reusable by making the serialized fields a list instead of hard coded 'health', 'strength', etc.
     public void UpdateStats()
     {
-        strength.text = ((int)statSO.GetCurrentStat(StatTypes.strength)).ToString();
-        health.text = ((int)statSO.GetCurrentStat(StatTypes.health)).ToString();
-        agility.text = ((int)statSO.GetCurrentStat(StatTypes.agility)).ToString();
-        intelligence.text = ((int)statSO.GetCurrentStat(StatTypes.intelligence)).ToString();
-        wisdom.text = ((int)statSO.GetCurrentStat(StatTypes.wisdom)).ToString();
-        clout.text = ((int)statSO.GetCurrentStat(StatTypes.clout)).ToString();
-        vitality.text = ((int)statSO.GetCurrentStat(StatTypes.vitality)).ToString();
+        strength.text = ((int)statSO.GetCurrentStatValue(StatTypes.strength)).ToString();
+        health.text = ((int)statSO.GetCurrentStatValue(StatTypes.health)).ToString();
+        agility.text = ((int)statSO.GetCurrentStatValue(StatTypes.agility)).ToString();
+        intelligence.text = ((int)statSO.GetCurrentStatValue(StatTypes.intelligence)).ToString();
+        wisdom.text = ((int)statSO.GetCurrentStatValue(StatTypes.wisdom)).ToString();
+        clout.text = ((int)statSO.GetCurrentStatValue(StatTypes.clout)).ToString();
+        vitality.text = ((int)statSO.GetCurrentStatValue(StatTypes.vitality)).ToString();
 
 
-        int classNamePre = ((int)statSO.GetCurrentStat(StatTypes.className));
+        int classNamePre = ((int)statSO.GetCurrentStatValue(StatTypes.className));
         string classNamePost = Enum.GetName(typeof(ClassTypes), classNamePre);
         className.text = classNamePost;
     }
