@@ -22,20 +22,28 @@ using System;
 
 }
 
-
+public enum StatTypeTypes
+{
+    primaryStats=0,
+    secondaryStats=1000,
+    infoStats=99999
+}
 public enum StatTypes
 {
-    strength,
+    strength=StatTypeTypes.primaryStats,
     agility,
     intelligence,
     wisdom,
     clout,
     vitality,
+    
+
+    power=StatTypeTypes.secondaryStats,
     health,
-    className,
-    power=100,
     critDamage,
-    attackSpeed
+    attackSpeed,
+
+    className=StatTypeTypes.infoStats
 }
 
 public enum StatModTypes
@@ -43,10 +51,11 @@ public enum StatModTypes
     initStats,
     baseStats,
     flat,
+    percentBase,
     percentAdd,
     percentMult,
 
-    info=99999
+    info = StatTypeTypes.infoStats
 }
 
 public enum ClassTypes

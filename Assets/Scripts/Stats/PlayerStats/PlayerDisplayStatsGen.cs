@@ -61,9 +61,7 @@ public class PlayerDisplayStatsGen : MonoBehaviour
         {
             if (displayStats.statEnum == StatTypes.className)
             {
-                string curClassName = statSO.GetClassName();
-
-                displayStats.statText.text = curClassName;
+                displayStats.statText.text = statSO.GetClassName();
             }
             else
             {

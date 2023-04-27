@@ -15,7 +15,11 @@ public class BaseStatsSO : ScriptableObject
     public int wisdom;
     public int clout;
     public int vitality;
+    public int critDamage;
 
+
+
+    //TODO: Delete this later
     public void GetBaseStats(Dictionary<StatTypes, StatModifier> stats) 
     {
         stats[StatTypes.health].value = health;
@@ -50,6 +54,36 @@ public class BaseStatsSO : ScriptableObject
         {
             stats[StatTypes.className].value = (float)-1;
         }
+    }
+
+    public void InputBaseStats(Dictionary<StatTypes, Dictionary<StatModTypes, float>> calcInstanceStats)
+    {
+        calcInstanceStats[StatTypes.health][StatModTypes.baseStats] = health;
+        calcInstanceStats[StatTypes.strength][StatModTypes.baseStats] = strength;
+        calcInstanceStats[StatTypes.agility][StatModTypes.baseStats] = agility;
+        calcInstanceStats[StatTypes.intelligence][StatModTypes.baseStats] = intelligence;
+        calcInstanceStats[StatTypes.wisdom][StatModTypes.baseStats] = wisdom;
+        calcInstanceStats[StatTypes.clout][StatModTypes.baseStats] = clout;
+        calcInstanceStats[StatTypes.vitality][StatModTypes.baseStats] = vitality;
+
+        calcInstanceStats[StatTypes.critDamage][StatModTypes.percentAdd] = critDamage;
+
+
+        try
+        {
+            ClassTypes classEnum = GetClassEnum(className);
+            calcInstanceStats[StatTypes.className][StatModTypes.info] = (float)classEnum;
+        }
+        catch
+        {
+            calcInstanceStats[StatTypes.className][StatModTypes.info] = (float)-1.0;
+        }
+    }
+
+    public ClassTypes GetClassEnum(string className)
+    {
+        ClassTypes classEnum = (ClassTypes)System.Enum.Parse(typeof(ClassTypes), className);
+        return classEnum;
     }
 }
 

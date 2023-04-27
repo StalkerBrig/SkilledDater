@@ -16,6 +16,7 @@ public class StatManager : MonoBehaviour
         curStatSO.SetBaseStats(className);
     }
 
+    //TODO: Delete eventually
     public void IncreaseStat(StatIncreaseSO statInc)
     {
         StatTypes statName = statInc.statName;
@@ -30,12 +31,12 @@ public class StatManager : MonoBehaviour
             StatTypes statName = stats.statName;
             float value = stats.value;
             StatModTypes modType = stats.modType;
+            object source = stats;
 
-            StatModifier addStats = new StatModifier(value: value, modType: modType);
+            StatModifier addStats = new StatModifier(value: value, modType: modType, source: source);
 
-            curStatSO.CalculateStats(statName, addStats);
+            curStatSO.ModifyStats(statName, addStats);
         }
     }
-
 
 }

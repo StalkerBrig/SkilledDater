@@ -1,0 +1,19 @@
+{
+	"skillName": "+5Str-3Agi",
+	"statList": 
+	[
+		{
+			"name": "+Strength",
+			"statName": "Strength",
+			"value": 5,
+			"modType": Flat
+		},
+		
+		{
+			"name": "-Agility",
+			"statName": "Agility",
+			"value": -3,
+			"modType": Flat
+		}
+	]
+}
