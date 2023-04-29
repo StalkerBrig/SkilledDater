@@ -66,7 +66,7 @@ public class BaseStatsSO : ScriptableObject
         calcInstanceStats[StatTypes.clout][StatModTypes.baseStats] = clout;
         calcInstanceStats[StatTypes.vitality][StatModTypes.baseStats] = vitality;
 
-        calcInstanceStats[StatTypes.critDamage][StatModTypes.percentAdd] = critDamage;
+        calcInstanceStats[StatTypes.critDamage][StatModTypes.percentBase] = critDamage;
 
 
         try

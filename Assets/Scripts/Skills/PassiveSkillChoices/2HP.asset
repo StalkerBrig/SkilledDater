@@ -9,8 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c1f24ec67b10f44a1bad574264c08b, type: 3}
-  m_Name: 1_Clout
+  m_Script: {fileID: 11500000, guid: 7a24e3d19af8a8d459e683bdabd863a4, type: 3}
+  m_Name: 2HP
   m_EditorClassIdentifier: 
-  statName: 4
-  increaseValue: 1
+  skillName: Add2HP
+  statList:
+  - name: HP
+    statName: 10001
+    value: 2
+    modType: 2

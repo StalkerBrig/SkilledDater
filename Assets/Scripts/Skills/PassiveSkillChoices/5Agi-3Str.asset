@@ -9,8 +9,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54c1f24ec67b10f44a1bad574264c08b, type: 3}
-  m_Name: 1_Vit
+  m_Script: {fileID: 11500000, guid: 7a24e3d19af8a8d459e683bdabd863a4, type: 3}
+  m_Name: 5Agi-3Str
   m_EditorClassIdentifier: 
-  statName: 5
-  increaseValue: 1
+  skillName: +5 Agi -3 Str
+  statList:
+  - name: +Agility
+    statName: 1
+    value: 5
+    modType: 2
+  - name: -Agility
+    statName: 0
+    value: -3
+    modType: 2

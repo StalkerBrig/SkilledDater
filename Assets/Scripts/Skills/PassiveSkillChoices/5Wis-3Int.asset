@@ -10,11 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a24e3d19af8a8d459e683bdabd863a4, type: 3}
-  m_Name: Add5PerCritDamage
+  m_Name: 5Wis-3Int
   m_EditorClassIdentifier: 
-  skillName: Add 5 Percent Crit Damage
+  skillName: 5Wis-3Int
   statList:
-  - name: 5P Crit Damage
-    statName: 1002
+  - name: +Wis
+    statName: 3
     value: 5
-    modType: 4
+    modType: 2
+  - name: -Int
+    statName: 2
+    value: -3
+    modType: 2

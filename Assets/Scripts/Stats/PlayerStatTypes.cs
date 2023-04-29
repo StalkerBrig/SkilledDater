@@ -22,11 +22,38 @@ using System;
 
 }
 
+
+[Serializable]
+public class StatCalcInfo
+{
+    public float value;
+    public StatCalculationType calcInfo;
+
+    public StatCalcInfo(float value, StatCalculationType calcInfo)
+    {
+        this.value = value;
+        this.calcInfo = calcInfo;
+    }
+
+    public StatCalcInfo(float value) : this(value, StatCalculationType.flat) { }
+
+
+}
+
+public enum StatCalculationType
+{
+    flat,
+    percentage,
+    info
+}
 public enum StatTypeTypes
 {
     primaryStats=0,
-    secondaryStats=1000,
-    infoStats=99999
+    secondaryStats=10000,
+
+    //Keep percentage and info stats together..
+    percentageBasedStats=90000,
+    infoStats=100000
 }
 public enum StatTypes
 {
@@ -40,10 +67,11 @@ public enum StatTypes
 
     power=StatTypeTypes.secondaryStats,
     health,
-    critDamage,
     attackSpeed,
 
-    className=StatTypeTypes.infoStats
+    critDamage=StatTypeTypes.percentageBasedStats,
+
+    className = StatTypeTypes.infoStats
 }
 
 public enum StatModTypes

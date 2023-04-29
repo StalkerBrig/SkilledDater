@@ -21,14 +21,24 @@ public class PlayerCurrentStatsSO : ScriptableObject
     [SerializeField] BaseClassStatsDict[] baseClassStatsDict;
 
     public Dictionary<StatTypes, Dictionary<StatModTypes, float>> calcInstanceStats = new Dictionary<StatTypes, Dictionary<StatModTypes, float>>();
-    public Dictionary<StatTypes, float> instanceStats = new Dictionary<StatTypes, float>();
+    public Dictionary<StatTypes, StatCalcInfo> instanceStats = new Dictionary<StatTypes, StatCalcInfo>();
 
     public void InitalizeStats()
     {
         foreach (StatTypes key in Enum.GetValues(typeof(StatTypes)))
         {
-            //StatModifier tmp = new StatModifier(0, StatModTypes.initStats);
-            instanceStats[key] = 0;
+            StatCalcInfo tmp = new StatCalcInfo(0);
+
+            if ((StatTypeTypes)key >= StatTypeTypes.percentageBasedStats && (StatTypeTypes)key < StatTypeTypes.infoStats)
+            {
+                tmp.calcInfo = StatCalculationType.percentage;
+            }
+            else
+            {
+                tmp.calcInfo = StatCalculationType.flat;
+            }
+
+            instanceStats[key] = tmp;
             calcInstanceStats[key] = new Dictionary<StatModTypes, float>();
 
             foreach (StatModTypes modType in Enum.GetValues(typeof(StatModTypes)))
@@ -38,8 +48,8 @@ public class PlayerCurrentStatsSO : ScriptableObject
             
         }
 
-        //StatModifier className = new StatModifier((float)ClassTypes.none, StatModTypes.initStats);
-        instanceStats[StatTypes.className] = (float)ClassTypes.none;
+        StatCalcInfo className = new StatCalcInfo(0, StatCalculationType.info);
+        instanceStats[StatTypes.className] = className;
 
         calcInstanceStats[StatTypes.className][StatModTypes.initStats] = (float)ClassTypes.none;
 
@@ -90,19 +100,6 @@ public class PlayerCurrentStatsSO : ScriptableObject
 
     }
 
-    //TODO: Delete Eventually
-    public void UpdateSecondaryStats()
-    {
-        instanceStats[StatTypes.critDamage] = 5 + instanceStats[StatTypes.strength] * (float).3;
-    }
-
-    //TODO: Delete Eventually
-    public void UpdateBaseStats(StatTypes stat, float value)
-    {
-        instanceStats[stat] += value;
-        UpdateSecondaryStats();
-    }
-
     public void ModifyStats(StatTypes statName, StatModifier statModifier)
     {
         calcInstanceStats[statName][statModifier.modType] += statModifier.value;
@@ -112,40 +109,46 @@ public class PlayerCurrentStatsSO : ScriptableObject
     public void CalculateStats()
     {
         //TODO: Need to add a way to identify percentage based stats (crit damage) vs non percentage based stats (strength)
-        foreach(StatTypes statType in Enum.GetValues(typeof(StatTypes)))
-            if ((int)statType != (int)StatTypeTypes.infoStats)
-            {
+        foreach (StatTypes statType in Enum.GetValues(typeof(StatTypes)))
+            if ((int)statType == (int)StatTypeTypes.infoStats) { continue; }
+            else
+            { 
                 float statTotal = 0;
-                float percentageTotal = 0;
-                float percentageMultTotal = 100;
+                float percentageAddTotal = 0;
+                float percentageMultTotal = 0;
 
-                percentageTotal += CalculateSecondaryStats(statType);
+                percentageAddTotal += CalculateSecondaryStats(statType);
 
                 foreach (StatModTypes statMod in Enum.GetValues(typeof(StatModTypes)))
                 {
-                    Debug.Log(statMod);
 
-                    if ((int)statMod != (int)StatTypeTypes.infoStats)
+                    if ((int)statMod == (int)StatTypeTypes.infoStats) { continue; }
+                    else if (statMod == StatModTypes.percentAdd || statMod == StatModTypes.percentBase)
                     {
-                        if (statMod == StatModTypes.percentAdd)
-                        {
-                            percentageTotal += calcInstanceStats[statType][statMod];
-                        }
-                        else if (statMod == StatModTypes.percentMult)
-                        {
-                            percentageMultTotal = 1+(calcInstanceStats[statType][statMod]/100);
-
-                        }
-                        else
-                        {
-                            statTotal += calcInstanceStats[statType][statMod];
-
-
-                        }
+                        percentageAddTotal += calcInstanceStats[statType][statMod];
                     }
+                    else if (statMod == StatModTypes.percentMult)
+                    {
+                        percentageMultTotal = calcInstanceStats[statType][statMod];
+
+                    }
+                    else
+                    {
+                        statTotal += calcInstanceStats[statType][statMod];
+                    }
+                    
                 }
 
-                instanceStats[statType] = statTotal * (percentageTotal * percentageMultTotal);
+                if (instanceStats[statType].calcInfo == StatCalculationType.flat)
+                {
+                    instanceStats[statType].value = statTotal;
+                    instanceStats[statType].value *= (((100 + percentageAddTotal)/100) * ((100 + percentageMultTotal) / 100));
+                }
+                else if (instanceStats[statType].calcInfo == StatCalculationType.percentage)
+                {
+                    instanceStats[statType].value = statTotal + percentageAddTotal;
+                    instanceStats[statType].value *= ((100 + percentageMultTotal) / 100);
+                }
 
             }
     }
@@ -154,7 +157,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
     {
         if ((int)statType == (int)StatTypes.critDamage)
         {
-            return (float)(instanceStats[StatTypes.strength] * .3);
+            return (float)(instanceStats[StatTypes.strength].value * .3);
         }
 
         return 0;
@@ -163,7 +166,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
 
     public float GetCurrentStatValue(StatTypes stat)
     {
-        return instanceStats[stat];
+        return instanceStats[stat].value;
     }
 
 
@@ -174,7 +177,5 @@ public class PlayerCurrentStatsSO : ScriptableObject
 
         return classNamePost;
     }
-
-
     
 }

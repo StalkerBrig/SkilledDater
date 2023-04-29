@@ -16,14 +16,6 @@ public class StatManager : MonoBehaviour
         curStatSO.SetBaseStats(className);
     }
 
-    //TODO: Delete eventually
-    public void IncreaseStat(StatIncreaseSO statInc)
-    {
-        StatTypes statName = statInc.statName;
-        float value = statInc.increaseValue;
-        curStatSO.UpdateBaseStats(statName, value);
-    }
-
     public void AddPassiveSkill(SkillStatsSO skillStatSO)
     {
         foreach (SkillStatInput stats in skillStatSO.statList)
