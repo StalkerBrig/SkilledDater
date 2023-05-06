@@ -23,6 +23,13 @@ public class PlayerCurrentStatsSO : ScriptableObject
     public Dictionary<StatTypes, Dictionary<StatModTypes, float>> calcInstanceStats = new Dictionary<StatTypes, Dictionary<StatModTypes, float>>();
     public Dictionary<StatTypes, StatCalcInfo> instanceStats = new Dictionary<StatTypes, StatCalcInfo>();
 
+    public bool isInitalized = false;
+
+    public void OnEnable()
+    {
+        isInitalized = false;
+    }
+
     public void InitalizeStats()
     {
         foreach (StatTypes key in Enum.GetValues(typeof(StatTypes)))
@@ -54,6 +61,8 @@ public class PlayerCurrentStatsSO : ScriptableObject
         calcInstanceStats[StatTypes.className][StatModTypes.initStats] = (float)ClassTypes.none;
 
         CalculateStats();
+
+        isInitalized = true;
     }
 
     private void PrintCalcDict()

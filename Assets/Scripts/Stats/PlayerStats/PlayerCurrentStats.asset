@@ -17,3 +17,4 @@ MonoBehaviour:
     classSO: {fileID: 11400000, guid: 74a81d547a0e2e548a4cd67b20bb7d78, type: 2}
   - className: thief
     classSO: {fileID: 11400000, guid: d3383ff8bae584a4eaef4ee8827aa975, type: 2}
+  isInitalized: 1

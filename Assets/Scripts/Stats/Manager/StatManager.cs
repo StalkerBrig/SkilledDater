@@ -9,7 +9,12 @@ public class StatManager : MonoBehaviour
 
     private void Awake()
     {
-        curStatSO.InitalizeStats();
+        DontDestroyOnLoad(this);
+
+        if (!curStatSO.isInitalized)
+        {
+            curStatSO.InitalizeStats();
+        }
     }
     public void SetBaseStats(string className)
     {
@@ -29,6 +34,40 @@ public class StatManager : MonoBehaviour
 
             curStatSO.ModifyStats(statName, addStats);
         }
+    }
+
+
+    //TODO: Make this better/more generic
+    public void AddWeapon(EquipmentSO weaponStats)
+    {
+        foreach (SkillStatInput stats in weaponStats.statList)
+        {
+            StatTypes statName = stats.statName;
+            float value = stats.value;
+            StatModTypes modType = stats.modType;
+            object source = stats;
+
+            StatModifier addStats = new StatModifier(value: value, modType: modType, source: source);
+
+            curStatSO.ModifyStats(statName, addStats);
+        }
+    }
+
+    //TODO: Make this better/more generic
+    public void RemoveWeapon(EquipmentSO weaponStats)
+    {
+        foreach (SkillStatInput stats in weaponStats.statList)
+        {
+            StatTypes statName = stats.statName;
+            float value = -stats.value;
+            StatModTypes modType = stats.modType;
+            object source = stats;
+
+            StatModifier addStats = new StatModifier(value: value, modType: modType, source: source);
+
+            curStatSO.ModifyStats(statName, addStats);
+        }
+
     }
 
 }
