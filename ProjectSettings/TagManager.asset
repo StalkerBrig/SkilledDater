@@ -6,6 +6,7 @@ TagManager:
   tags:
   - DisplayStat
   - Floor
+  - Enemy
   layers:
   - Default
   - TransparentFX

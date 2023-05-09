@@ -36,8 +36,6 @@ public class StatManager : MonoBehaviour
         }
     }
 
-
-    //TODO: Make this better/more generic
     public void AddWeapon(EquipmentSO weaponStats)
     {
         foreach (SkillStatInput stats in weaponStats.statList)
@@ -52,8 +50,6 @@ public class StatManager : MonoBehaviour
             curStatSO.ModifyStats(statName, addStats);
         }
     }
-
-    //TODO: Make this better/more generic
     public void RemoveWeapon(EquipmentSO weaponStats)
     {
         foreach (SkillStatInput stats in weaponStats.statList)
@@ -68,6 +64,11 @@ public class StatManager : MonoBehaviour
             curStatSO.ModifyStats(statName, addStats);
         }
 
+    }
+
+    public float GetStatValue(StatTypes statType)
+    {
+        return curStatSO.GetCurrentStatValue(statType);
     }
 
 }
