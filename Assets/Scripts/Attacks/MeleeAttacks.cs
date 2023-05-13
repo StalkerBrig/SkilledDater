@@ -21,7 +21,10 @@ public class MeleeAttacks : MonoBehaviour
     {
         if (collision.tag=="Enemy")
         {
-            Destroy(gameObject);
+            if (collision.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.Damage(10);
+            }
         }
     }
 }
