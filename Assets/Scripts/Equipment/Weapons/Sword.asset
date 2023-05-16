@@ -20,5 +20,5 @@ MonoBehaviour:
     modType: 2
   - name: AttackSpeed
     statName: 10002
-    value: 1.1
+    value: 0.13
     modType: 2

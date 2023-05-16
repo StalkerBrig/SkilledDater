@@ -4,8 +4,15 @@ using UnityEngine;
 
 public class MeleeAttacks : MonoBehaviour
 {
+
     [SerializeField] float projectileSpeed = 30;
     Rigidbody2D rb;
+    PlayerAttack playerAttack;
+
+    private void Awake()
+    {
+        playerAttack = FindAnyObjectByType<PlayerAttack>();
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -23,8 +30,9 @@ public class MeleeAttacks : MonoBehaviour
         {
             if (collision.TryGetComponent(out IDamageable damageable))
             {
-                damageable.Damage(10);
+                damageable.Damage(playerAttack.CalculateDamage());
             }
+            Destroy(gameObject);
         }
     }
 }

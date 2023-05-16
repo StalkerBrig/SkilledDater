@@ -26,6 +26,13 @@ public class PlayerAttack : MonoBehaviour
 
     void Update()
     {
+        AttackProc();
+    }
+
+    private void AttackProc()
+    {
+        //TODO: Probably need to make this better.. Something like subscribing
+        //       or whatever they call it..
         attackSpeedRate = statManager.GetStatValue(StatTypes.attackSpeed);
 
         if (attackSpeedRate <= .001)
@@ -42,9 +49,14 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    void Attack()
+    private void Attack()
     {
-        
         Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
+    }
+
+    public float CalculateDamage()
+    {
+        float power = Random.Range((int)statManager.GetStatValue(StatTypes.power) * (float).9, (int)statManager.GetStatValue(StatTypes.power) * (float)1.1 + 1);
+        return (int)power;
     }
 }
