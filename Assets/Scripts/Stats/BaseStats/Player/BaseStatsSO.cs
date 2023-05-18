@@ -16,10 +16,12 @@ public class BaseStatsSO : ScriptableObject
     public int clout;
     public int vitality;
     public int critDamage;
+    public int critChance;
 
 
 
     //TODO: Delete this later
+    /*
     public void GetBaseStats(Dictionary<StatTypes, StatModifier> stats) 
     {
         stats[StatTypes.health].value = health;
@@ -55,6 +57,7 @@ public class BaseStatsSO : ScriptableObject
             stats[StatTypes.className].value = (float)-1;
         }
     }
+    */
 
     public void InputBaseStats(Dictionary<StatTypes, Dictionary<StatModTypes, float>> calcInstanceStats)
     {
@@ -67,6 +70,8 @@ public class BaseStatsSO : ScriptableObject
         calcInstanceStats[StatTypes.vitality][StatModTypes.baseStats] = vitality;
 
         calcInstanceStats[StatTypes.critDamage][StatModTypes.percentBase] = critDamage;
+        calcInstanceStats[StatTypes.critChance][StatModTypes.percentBase] = critChance;
+
 
 
         try

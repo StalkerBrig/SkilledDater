@@ -21,3 +21,4 @@ MonoBehaviour:
   clout: 5
   vitality: 10
   critDamage: 10
+  critChance: 5

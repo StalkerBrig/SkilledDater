@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3229465072555501279}
   - component: {fileID: 3229465072555501282}
   m_Layer: 0
-  m_Name: TMP_damage
+  m_Name: TMP_crit_damage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 3827043277573568695, guid: 59ce69a7aedfdc648ab31b9cb9599a76, type: 2}
+  - {fileID: 6819992552649117473, guid: 97ee42bf778868b46bfbe2ec62ea6ed2, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -104,8 +104,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: 10000
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 59ce69a7aedfdc648ab31b9cb9599a76, type: 2}
-  m_sharedMaterial: {fileID: 3827043277573568695, guid: 59ce69a7aedfdc648ab31b9cb9599a76, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 97ee42bf778868b46bfbe2ec62ea6ed2, type: 2}
+  m_sharedMaterial: {fileID: 6819992552649117473, guid: 97ee42bf778868b46bfbe2ec62ea6ed2, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -129,13 +129,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 9
-  m_fontSizeBase: 9
+  m_fontSize: 13
+  m_fontSizeBase: 13
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 1
+  m_fontStyle: 3
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -217,7 +217,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3229465073576304072}
   m_Layer: 0
-  m_Name: TMP_damage_holder
+  m_Name: TMP_crit_damage_holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

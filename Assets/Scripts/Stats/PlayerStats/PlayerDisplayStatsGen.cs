@@ -63,6 +63,15 @@ public class PlayerDisplayStatsGen : MonoBehaviour
             {
                 displayStats.statText.text = statSO.GetClassName();
             }
+            else if (displayStats.statEnum == StatTypes.attackSpeed)
+            {
+                displayStats.statText.text = ((float)statSO.GetCurrentStatValue(displayStats.statEnum)).ToString("F2");
+            }
+            else if ((int)displayStats.statEnum >= (int)StatTypeTypes.percentageBasedStats &&
+                     (int)displayStats.statEnum < (int)StatTypeTypes.infoStats)
+            {
+                displayStats.statText.text = ((float)statSO.GetCurrentStatValue(displayStats.statEnum)).ToString("F2")+"%";
+            }
             else
             {
                 displayStats.statText.text = ((int)statSO.GetCurrentStatValue(displayStats.statEnum)).ToString();

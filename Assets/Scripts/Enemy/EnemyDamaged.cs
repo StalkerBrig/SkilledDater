@@ -10,6 +10,8 @@ public class EnemyDamaged : MonoBehaviour, IDamageable
     [SerializeField] public EnemyStats stats;
 
     public GameObject damageTextPrefab;
+    public GameObject critDamageTextPrefab;
+
 
     private float currentHealth;
 
@@ -20,11 +22,22 @@ public class EnemyDamaged : MonoBehaviour, IDamageable
     }
 
 
-    public void Damage(float amount)
+    public void Damage(DamageInfo dmgInfo)
     {
-        currentHealth -= amount;
-        GameObject DamageTextInstance = Instantiate(damageTextPrefab, transform);
-        DamageTextInstance.transform.GetChild(0).GetComponent<TextMeshPro>().text = amount.ToString();
+        currentHealth -= dmgInfo.amount;
+        GameObject DamageTextInstance;
+
+        if (dmgInfo.isCrit)
+        {
+            DamageTextInstance = Instantiate(critDamageTextPrefab, transform);
+        }
+        else
+        {
+            DamageTextInstance = Instantiate(damageTextPrefab, transform);
+        }
+
+        DamageTextInstance.transform.GetChild(0).GetComponent<TextMeshPro>().text = dmgInfo.amount.ToString();
+
 
     }
 }

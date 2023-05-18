@@ -70,6 +70,8 @@ public enum StatTypes
     attackSpeed,
 
     critDamage=StatTypeTypes.percentageBasedStats,
+    critChance,
+
 
     className = StatTypeTypes.infoStats
 }

@@ -168,6 +168,10 @@ public class PlayerCurrentStatsSO : ScriptableObject
         {
             return (float)(instanceStats[StatTypes.strength].value * .3);
         }
+        else if ((int)statType == (int)StatTypes.critChance)
+        {
+            return (float)(instanceStats[StatTypes.agility].value * .3);
+        }
 
         return 0;
     }

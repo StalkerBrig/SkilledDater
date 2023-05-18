@@ -2957,6 +2957,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stats: {fileID: 11400000, guid: 2c9d8bd8a3eba8841a608c2aeaf3208f, type: 2}
   damageTextPrefab: {fileID: 3229465073576304071, guid: dc59b15b564a24a418722892d60efe57, type: 3}
+  critDamageTextPrefab: {fileID: 3229465073576304071, guid: 74677c96fb9685a4c92e8d783e9a76c8, type: 3}
 --- !u!1 &1737278964
 GameObject:
   m_ObjectHideFlags: 0
