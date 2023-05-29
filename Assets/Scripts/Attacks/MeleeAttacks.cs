@@ -5,9 +5,10 @@ using UnityEngine;
 public class MeleeAttacks : MonoBehaviour
 {
 
-    [SerializeField] float projectileSpeed = 30;
-    Rigidbody2D rb;
-    PlayerAttack playerAttack;
+    [SerializeField] private float projectileSpeed = 30;
+    private Rigidbody2D rb;
+    private PlayerAttack playerAttack;
+    private DamageInfo damageInfo;
 
     private void Awake()
     {
@@ -17,6 +18,10 @@ public class MeleeAttacks : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //calculating at beginning and not when it hits incase
+        // there are weird stat changes during the delay
+        damageInfo = playerAttack.CalculateDamage();
+
         rb = GetComponent<Rigidbody2D>();
 
 
@@ -30,7 +35,7 @@ public class MeleeAttacks : MonoBehaviour
         {
             if (collision.TryGetComponent(out IDamageable damageable))
             {
-                damageable.Damage(playerAttack.CalculateDamage());
+                damageable.Damage(damageInfo);
             }
             Destroy(gameObject);
         }

@@ -96,3 +96,10 @@ public enum ClassTypes
 }
 
 
+public enum SkillStatTypes
+{
+    damageIncrease,
+    numberOfAttacks,
+}
+
+
