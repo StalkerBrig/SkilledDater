@@ -85,6 +85,10 @@ public enum StatModTypes
     percentAdd,
     percentMult,
 
+    skillFlat,
+    skillPercentAdd,
+    skillPercentMult,
+
     info = StatTypeTypes.infoStats
 }
 
@@ -98,8 +102,7 @@ public enum ClassTypes
 
 public enum SkillStatTypes
 {
-    damageIncrease,
-    numberOfAttacks,
+    numberOfAttacks
 }
 
 

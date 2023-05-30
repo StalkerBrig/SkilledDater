@@ -117,7 +117,6 @@ public class PlayerCurrentStatsSO : ScriptableObject
 
     public void CalculateStats()
     {
-        //TODO: Need to add a way to identify percentage based stats (crit damage) vs non percentage based stats (strength)
         foreach (StatTypes statType in Enum.GetValues(typeof(StatTypes)))
             if ((int)statType == (int)StatTypeTypes.infoStats) { continue; }
             else
@@ -125,6 +124,8 @@ public class PlayerCurrentStatsSO : ScriptableObject
                 float statTotal = 0;
                 float percentageAddTotal = 0;
                 float percentageMultTotal = 0;
+                float skillPercentageAddTotal = 0;
+                float skillPercentageMultTotal = 0;
 
                 percentageAddTotal += CalculateSecondaryStats(statType);
 
@@ -132,6 +133,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
                 {
 
                     if ((int)statMod == (int)StatTypeTypes.infoStats) { continue; }
+
                     else if (statMod == StatModTypes.percentAdd || statMod == StatModTypes.percentBase)
                     {
                         percentageAddTotal += calcInstanceStats[statType][statMod];
@@ -141,6 +143,17 @@ public class PlayerCurrentStatsSO : ScriptableObject
                         percentageMultTotal = calcInstanceStats[statType][statMod];
 
                     }
+
+                    else if (statMod == StatModTypes.skillPercentAdd)
+                    {
+                        skillPercentageAddTotal += calcInstanceStats[statType][statMod];
+                    }
+                    else if (statMod == StatModTypes.skillPercentMult)
+                    {
+                        skillPercentageMultTotal = calcInstanceStats[statType][statMod];
+
+                    }
+
                     else
                     {
                         statTotal += calcInstanceStats[statType][statMod];
@@ -152,12 +165,20 @@ public class PlayerCurrentStatsSO : ScriptableObject
                 {
                     instanceStats[statType].value = statTotal;
                     instanceStats[statType].value *= (((100 + percentageAddTotal)/100) * ((100 + percentageMultTotal) / 100));
+
+                    instanceStats[statType].value = statTotal;
+                    instanceStats[statType].value *= (((100 + skillPercentageAddTotal) / 100) * ((100 + skillPercentageMultTotal) / 100));
                 }
                 else if (instanceStats[statType].calcInfo == StatCalculationType.percentage)
                 {
                     instanceStats[statType].value = statTotal + percentageAddTotal;
                     instanceStats[statType].value *= ((100 + percentageMultTotal) / 100);
+
+                    instanceStats[statType].value = statTotal + skillPercentageAddTotal;
+                    instanceStats[statType].value *= ((100 + skillPercentageMultTotal) / 100);
                 }
+
+
 
             }
     }
@@ -176,6 +197,10 @@ public class PlayerCurrentStatsSO : ScriptableObject
         return 0;
     }
 
+    public float CalculateSkillStats(StatTypes statTypes)
+    {
+        return 0;
+    }
 
     public float GetCurrentStatValue(StatTypes stat)
     {

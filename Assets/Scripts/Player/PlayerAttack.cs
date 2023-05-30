@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
 
@@ -54,8 +56,18 @@ public class PlayerAttack : MonoBehaviour
         Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
     }
 
-    public DamageInfo CalculateDamage()
+    public DamageInfo CalculateDamage(ActiveSkillsSO activeSkillSO = null)
     {
+        if (activeSkillSO != null)
+        {
+            foreach (StatTypes stat in activeSkillSO.statList)
+            {
+                //TODO: Need to allow AddPassiveSkill to take in a statlist and not just a SO
+                //statManager.AddPassiveSkill(stat);
+            }
+        }
+        
+
         float cur_power = (int)statManager.GetStatValue(StatTypes.power);
         float power_range = Random.Range(cur_power * (float).70, cur_power * (float)1.30 + 1);
         float final_damage;
@@ -64,7 +76,7 @@ public class PlayerAttack : MonoBehaviour
         float cur_critChance = statManager.GetStatValue(StatTypes.critChance);
         float check_if_crit = Random.Range((float)0.0, (float)100.0);
 
-        if (cur_critChance > check_if_crit)
+        if (cur_critChance >= check_if_crit)
         {
             is_crit = true;
         }
@@ -79,6 +91,6 @@ public class PlayerAttack : MonoBehaviour
             final_damage = power_range;
         }
 
-        return  new DamageInfo((int)final_damage, is_crit);
+        return new DamageInfo((int)final_damage, is_crit);
     }
 }

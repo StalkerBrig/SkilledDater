@@ -16,5 +16,6 @@ public class ActiveSkillInput
 public class ActiveSkillsSO : ScriptableObject
 {
     public string activeSkillName;
-    public List<ActiveSkillInput> statList;
+    public List<ActiveSkillInput> activeStatList;
+    public List<StatTypes> statList;
 }
