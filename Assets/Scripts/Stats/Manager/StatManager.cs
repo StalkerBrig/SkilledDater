@@ -22,7 +22,6 @@ public class StatManager : MonoBehaviour
     }
 
     //TODO: probably remove source from StatModifier?
-    //TODO: Need to overload this function to take in a list and not just a SO
     public void AddPassiveSkill(SkillStatsSO skillStatSO)
     {
         foreach (SkillStatInput stats in skillStatSO.statList)
@@ -38,10 +37,39 @@ public class StatManager : MonoBehaviour
         }
     }
 
-    //TODO: Need to overload this function to take in a list and not just a SO
+    public void AddPassiveSkill(List<SkillStatInput> statList)
+    {
+        foreach (SkillStatInput stats in statList)
+        {
+            StatTypes statName = stats.statName;
+            float value = stats.value;
+            StatModTypes modType = stats.modType;
+            object source = stats;
+
+            StatModifier addStats = new StatModifier(value: value, modType: modType, source: source);
+
+            curStatSO.ModifyStats(statName, addStats);
+        }
+    }
+
     public void RemovePassiveSkill(SkillStatsSO skillStatSO)
     {
         foreach (SkillStatInput stats in skillStatSO.statList)
+        {
+            StatTypes statName = stats.statName;
+            float value = -stats.value;
+            StatModTypes modType = stats.modType;
+            object source = stats;
+
+            StatModifier addStats = new StatModifier(value: value, modType: modType, source: source);
+
+            curStatSO.ModifyStats(statName, addStats);
+        }
+    }
+
+    public void RemovePassiveSkill(List<SkillStatInput> statList)
+    {
+        foreach (SkillStatInput stats in statList)
         {
             StatTypes statName = stats.statName;
             float value = -stats.value;

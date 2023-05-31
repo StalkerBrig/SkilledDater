@@ -1,16 +1,19 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class PlayerAttack : MonoBehaviour
 {
     private Transform attackSpawner;
-    [SerializeField] private GameObject projectile;
     float attackSpeedRate;
     float attackTimer;
+
+    public static event Action OnAttack;
 
     private StatManager statManager;
     private void Awake()
@@ -23,7 +26,6 @@ public class PlayerAttack : MonoBehaviour
     {
         attackSpeedRate = statManager.GetStatValue(StatTypes.attackSpeed);
         attackTimer = 0;
-
     }
 
     void Update()
@@ -46,12 +48,13 @@ public class PlayerAttack : MonoBehaviour
 
         if (attackTimer >= attackSpeedRate)
         {
-            Attack();
+            //Attack();
+            OnAttack?.Invoke();
             attackTimer = 0;
         }
     }
 
-    private void Attack()
+    public void Attack(GameObject projectile)
     {
         Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
     }
@@ -60,20 +63,23 @@ public class PlayerAttack : MonoBehaviour
     {
         if (activeSkillSO != null)
         {
-            foreach (StatTypes stat in activeSkillSO.statList)
-            {
-                //TODO: Need to allow AddPassiveSkill to take in a statlist and not just a SO
-                //statManager.AddPassiveSkill(stat);
-            }
+            statManager.AddPassiveSkill(activeSkillSO.statList);
         }
-        
 
         float cur_power = (int)statManager.GetStatValue(StatTypes.power);
+        float cur_critChance = statManager.GetStatValue(StatTypes.critChance);
+        float cur_critDamage = statManager.GetStatValue(StatTypes.critDamage);
+
+        if (activeSkillSO != null)
+        {
+            statManager.RemovePassiveSkill(activeSkillSO.statList);
+        }
+
+
         float power_range = Random.Range(cur_power * (float).70, cur_power * (float)1.30 + 1);
         float final_damage;
 
         bool is_crit = false;
-        float cur_critChance = statManager.GetStatValue(StatTypes.critChance);
         float check_if_crit = Random.Range((float)0.0, (float)100.0);
 
         if (cur_critChance >= check_if_crit)
@@ -83,7 +89,6 @@ public class PlayerAttack : MonoBehaviour
 
         if (is_crit)
         {
-            float cur_critDamage = statManager.GetStatValue(StatTypes.critDamage);
             final_damage = power_range * (1+cur_critDamage/100);
         }
         else

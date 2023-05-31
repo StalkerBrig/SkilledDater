@@ -24,7 +24,6 @@ public class MeleeAttacks : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
 
-
         rb.velocity = new Vector2(projectileSpeed, 0);
         rb.gravityScale = 0;
     }

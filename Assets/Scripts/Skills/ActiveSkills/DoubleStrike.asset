@@ -13,10 +13,12 @@ MonoBehaviour:
   m_Name: DoubleStrike
   m_EditorClassIdentifier: 
   activeSkillName: 
-  statList:
+  activeStatList:
   - statName: 0
-    value: 110
-    modType: 5
-  - statName: 1
     value: 2
-    modType: 2
+    modType: 6
+  statList:
+  - name: DamageIncrease
+    statName: 10000
+    value: 200
+    modType: 7
