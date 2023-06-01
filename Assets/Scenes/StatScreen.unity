@@ -207,7 +207,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -687,7 +687,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -1361,7 +1361,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -1495,7 +1495,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -1629,7 +1629,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -2303,7 +2303,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -3112,17 +3112,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 834081090}
   m_CullTransparentMesh: 1
---- !u!114 &971306582 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
-  m_PrefabInstance: {fileID: 3659368005312941316}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6bacfad5a5844834bb45e45753fc3be6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1018616149
 GameObject:
   m_ObjectHideFlags: 0
@@ -3342,7 +3331,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: SetBaseStats
         m_Mode: 5
@@ -4933,7 +4922,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -5606,7 +5595,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: SetBaseStats
         m_Mode: 5
@@ -5740,7 +5729,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2
@@ -5874,7 +5863,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 971306582}
+      - m_Target: {fileID: 3659368005982190418, guid: 3bb9fca3a30328f4e9c39c21d5c749ef, type: 3}
         m_TargetAssemblyTypeName: StatManager, Assembly-CSharp
         m_MethodName: AddPassiveSkill
         m_Mode: 2

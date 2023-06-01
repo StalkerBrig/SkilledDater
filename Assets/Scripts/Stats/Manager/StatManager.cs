@@ -6,15 +6,28 @@ using UnityEngine;
 public class StatManager : MonoBehaviour
 {
     [SerializeField] private PlayerCurrentStatsSO curStatSO;
+    private static GameObject instance;
+
 
     private void Awake()
     {
-        DontDestroyOnLoad(this);
+        if (instance == null)
+        {
+            instance = gameObject;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        else if (instance != this)
+        {
+            Destroy(this);
+
+        }
 
         if (!curStatSO.isInitalized)
         {
             curStatSO.InitalizeStats();
         }
+
     }
     public void SetBaseStats(string className)
     {

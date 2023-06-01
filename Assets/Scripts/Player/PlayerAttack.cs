@@ -9,7 +9,6 @@ using Random = UnityEngine.Random;
 
 public class PlayerAttack : MonoBehaviour
 {
-    private Transform attackSpawner;
     float attackSpeedRate;
     float attackTimer;
 
@@ -19,11 +18,11 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         statManager = FindObjectOfType<StatManager>();
-        attackSpawner = transform.Find("AttackPosition");
     }
 
     void Start()
     {
+
         attackSpeedRate = statManager.GetStatValue(StatTypes.attackSpeed);
         attackTimer = 0;
     }
@@ -54,7 +53,7 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void Attack(GameObject projectile)
+    public void Attack(GameObject projectile, Transform attackSpawner)
     {
         Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
     }

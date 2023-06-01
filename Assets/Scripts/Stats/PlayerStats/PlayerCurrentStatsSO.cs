@@ -166,7 +166,6 @@ public class PlayerCurrentStatsSO : ScriptableObject
                     instanceStats[statType].value = statTotal;
                     instanceStats[statType].value *= (((100 + percentageAddTotal)/100) * ((100 + percentageMultTotal) / 100));
 
-                    instanceStats[statType].value = statTotal;
                     instanceStats[statType].value *= (((100 + skillPercentageAddTotal) / 100) * ((100 + skillPercentageMultTotal) / 100));
                 }
                 else if (instanceStats[statType].calcInfo == StatCalculationType.percentage)
@@ -174,8 +173,8 @@ public class PlayerCurrentStatsSO : ScriptableObject
                     instanceStats[statType].value = statTotal + percentageAddTotal;
                     instanceStats[statType].value *= ((100 + percentageMultTotal) / 100);
 
-                    instanceStats[statType].value = statTotal + skillPercentageAddTotal;
-                    instanceStats[statType].value *= ((100 + skillPercentageMultTotal) / 100);
+                    instanceStats[statType].value += skillPercentageAddTotal;
+                    instanceStats[statType].value *= ((100 + skillPercentageMultTotal) / 100) ;
                 }
 
 
