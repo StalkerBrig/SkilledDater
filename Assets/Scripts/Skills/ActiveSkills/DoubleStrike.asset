@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037807c1910fafe45a2999ded40a92ed, type: 3}
   m_Name: DoubleStrike
   m_EditorClassIdentifier: 
-  activeSkillName: 
+  activeSkillName: Double Strike
+  skillGFX: {fileID: 8175151300305731616, guid: 06bf0088a1372ab4ba41e3b7db9b77bf, type: 3}
   activeStatList:
   - statName: 0
     value: 2

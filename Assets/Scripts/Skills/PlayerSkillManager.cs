@@ -6,15 +6,37 @@ using UnityEngine;
 
 public class PlayerSkillManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public ActiveSkillsSO activeSkill;
+
+    [SerializeField] public bool isActive = false;
+
+    private static GameObject instance;
+
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = gameObject;
+            DontDestroyOnLoad(gameObject);
+        }
+
+        else if (instance != this)
+        {
+            Destroy(this);
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void AddActiveSkill(ActiveSkillsSO newActiveSkill)
     {
-        
+        isActive = !isActive;
+
+        if (isActive == false)
+        {
+            activeSkill = null;
+        }
+        else
+        {
+            activeSkill = newActiveSkill;
+        }
     }
 }
