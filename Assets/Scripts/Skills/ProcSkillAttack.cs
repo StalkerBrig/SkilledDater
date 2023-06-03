@@ -15,7 +15,6 @@ public class ProcSkillAttack : MonoBehaviour
     private void Awake()
     {
         playerAttack = FindObjectOfType<PlayerAttack>();
-        //playerSkillManager = FindObjectOfType<PlayerSkillManager>();
 
         attackSpawner = transform.Find("AttackPosition").transform;
 
@@ -30,7 +29,6 @@ public class ProcSkillAttack : MonoBehaviour
     private void Update()
     {
         //TODO: Set this up as a event probably?
-        print(playerSkillManager.activeSkill);
         if (playerSkillManager.activeSkill != null)
         {
             projectile = playerSkillManager.activeSkill.skillGFX.GameObject();
@@ -50,7 +48,7 @@ public class ProcSkillAttack : MonoBehaviour
 
     public void ProcAttack()
     {
-        if (projectile != null)
+        if (projectile != null && this != null)
         {
             StartCoroutine(MultiAttackHelper());
         }
@@ -62,7 +60,9 @@ public class ProcSkillAttack : MonoBehaviour
         {
             if (attackSpawner != null)
             {
-                playerAttack.Attack(projectile, attackSpawner);
+                
+                MeleeAttacks meleeAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<MeleeAttacks>();
+                meleeAttack.SetDamage(playerAttack.CalculateDamage(playerSkillManager.activeSkill));
 
                 yield return new WaitForSeconds(.03f);
 

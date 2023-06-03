@@ -53,9 +53,9 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
-    public void Attack(GameObject projectile, Transform attackSpawner)
+    public GameObject Attack(GameObject projectile, Transform attackSpawner)
     {
-        Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
+        return Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
     }
 
     public DamageInfo CalculateDamage(ActiveSkillsSO activeSkillSO = null)
