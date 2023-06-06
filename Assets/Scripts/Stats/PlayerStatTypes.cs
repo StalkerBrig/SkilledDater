@@ -44,16 +44,47 @@ public enum StatCalculationType
 {
     flat,
     percentage,
+    debuffFlat,
+    debuffPercentage,
     info
 }
 public enum StatTypeTypes
 {
-    primaryStats=0,
-    secondaryStats=10000,
+    flatBasedStats = 0,
 
-    //Keep percentage and info stats together..
-    percentageBasedStats=90000,
-    infoStats=100000
+
+    primaryStats=1,
+    primaryStatsEnd=9999,
+
+    secondaryStats=10000,
+    secondaryStatsEnd=19999,
+
+    debuffBasedStats=20000,
+    debuffBasedStatsEnd=29998,
+    
+
+    flatBasedStatsEnd=29999,
+
+
+
+    percentageBasedStats=30000,
+
+
+    secondaryPercentageBasedStats=30001,
+    secondaryPercentageBasedStatsEnd=39999,
+
+    debuffPercentageBasedStats=40000,
+    debuffPercentageBasedStatsEnd=49999,
+
+
+    percentageBasedStatsEnd=99998,
+
+
+
+    nonInfoStatsEnd = 99999,
+
+    infoStats=100000,
+    infoStatsEnd=199999,
 }
 public enum StatTypes
 {
@@ -68,9 +99,11 @@ public enum StatTypes
     power=StatTypeTypes.secondaryStats,
     health,
     attackSpeed,
+    poisonDamage,
 
-    critDamage=StatTypeTypes.percentageBasedStats,
+    critDamage=StatTypeTypes.secondaryPercentageBasedStats,
     critChance,
+    poisonChance,
 
 
     className = StatTypeTypes.infoStats
@@ -81,6 +114,7 @@ public enum StatModTypes
     initStats,
     baseStats,
     flat,
+
     percentBase,
     percentAdd,
     percentMult,
@@ -102,7 +136,10 @@ public enum ClassTypes
 
 public enum SkillStatTypes
 {
-    numberOfAttacks
+    numberOfAttacks,
+    cooldown,
+    buffDurationNoAttacks,
+    buffDurationSeconds
 }
 
 

@@ -36,13 +36,27 @@ public class PlayerCurrentStatsSO : ScriptableObject
         {
             StatCalcInfo tmp = new StatCalcInfo(0);
 
-            if ((StatTypeTypes)key >= StatTypeTypes.percentageBasedStats && (StatTypeTypes)key < StatTypeTypes.infoStats)
+            if ((StatTypeTypes)key >= StatTypeTypes.percentageBasedStats && (StatTypeTypes)key < StatTypeTypes.percentageBasedStatsEnd)
             {
-                tmp.calcInfo = StatCalculationType.percentage;
+                if ((StatTypeTypes) key >= StatTypeTypes.debuffPercentageBasedStats && (StatTypeTypes)key < StatTypeTypes.debuffPercentageBasedStatsEnd)
+                {
+                    tmp.calcInfo = StatCalculationType.debuffPercentage;
+                }
+                else
+                {
+                    tmp.calcInfo = StatCalculationType.percentage;
+                }
             }
             else
             {
-                tmp.calcInfo = StatCalculationType.flat;
+                if ((StatTypeTypes)key >= StatTypeTypes.debuffBasedStats && (StatTypeTypes)key < StatTypeTypes.debuffBasedStatsEnd)
+                {
+                    tmp.calcInfo = StatCalculationType.debuffFlat;
+                }
+                else
+                {
+                    tmp.calcInfo = StatCalculationType.flat;
+                }
             }
 
             instanceStats[key] = tmp;
@@ -115,6 +129,8 @@ public class PlayerCurrentStatsSO : ScriptableObject
         CalculateStats();
     }
 
+
+    //TODO: Need to come back and set up debuff damage/etc
     public void CalculateStats()
     {
         foreach (StatTypes statType in Enum.GetValues(typeof(StatTypes)))
