@@ -17,6 +17,7 @@ public class ActiveSkillsSO : ScriptableObject
 {
     public string activeSkillName;
     public GameObject skillGFX;
+    public ActiveSkillType skillType;
     public List<ActiveSkillInput> activeStatList;
     public List<SkillStatInput> statList;
 }

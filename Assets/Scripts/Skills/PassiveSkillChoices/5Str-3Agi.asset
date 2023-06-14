@@ -15,10 +15,10 @@ MonoBehaviour:
   skillName: +5 Str -3 Agi
   statList:
   - name: +Strength
-    statName: 0
+    statName: 1
     value: 5
     modType: 2
   - name: -Agility
-    statName: 1
+    statName: 2
     value: -3
     modType: 2

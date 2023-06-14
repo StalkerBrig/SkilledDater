@@ -17,8 +17,6 @@ public class ProcSkillAttack : MonoBehaviour
         playerAttack = FindObjectOfType<PlayerAttack>();
 
         attackSpawner = transform.Find("AttackPosition").transform;
-
-
     }
 
     void Start()
@@ -32,11 +30,15 @@ public class ProcSkillAttack : MonoBehaviour
         if (playerSkillManager.activeSkill != null)
         {
             projectile = playerSkillManager.activeSkill.skillGFX.GameObject();
-            foreach (ActiveSkillInput activeSkillData in playerSkillManager.activeSkill.activeStatList)
+
+            if (playerSkillManager.activeSkill.skillType == ActiveSkillType.projectile)
             {
-                if (activeSkillData.statName == SkillStatTypes.numberOfAttacks)
+                foreach (ActiveSkillInput activeSkillData in playerSkillManager.activeSkill.activeStatList)
                 {
-                    numAttacks = (int)activeSkillData.value;
+                    if (activeSkillData.statName == SkillStatTypes.numberOfAttacks)
+                    {
+                        numAttacks = (int)activeSkillData.value;
+                    }
                 }
             }
         }
@@ -50,8 +52,24 @@ public class ProcSkillAttack : MonoBehaviour
     {
         if (projectile != null && this != null)
         {
-            StartCoroutine(MultiAttackHelper());
+            if (playerSkillManager.activeSkill.skillType == ActiveSkillType.buff)
+            {
+                BuffAttacks buffAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<BuffAttacks>();
+                foreach (ActiveSkillInput activeSkillData in playerSkillManager.activeSkill.activeStatList)
+                {
+                    if (activeSkillData.statName == SkillStatTypes.buffDurationNumAttacks)
+                    {
+                        buffAttack.SetBuffDuration(activeSkillData.value);
+                    }
+                }
+
+            }
+            else
+            {
+                StartCoroutine(MultiAttackHelper());
+            }
         }
+        
     }
 
     IEnumerator MultiAttackHelper() 

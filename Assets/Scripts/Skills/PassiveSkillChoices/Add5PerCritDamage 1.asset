@@ -15,6 +15,6 @@ MonoBehaviour:
   skillName: Add 5 Percent Crit Damage
   statList:
   - name: 5AP Crit Damage
-    statName: 90000
+    statName: 30001
     value: 5
     modType: 4

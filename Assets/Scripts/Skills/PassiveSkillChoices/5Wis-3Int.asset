@@ -15,10 +15,10 @@ MonoBehaviour:
   skillName: 5Wis-3Int
   statList:
   - name: +Wis
-    statName: 3
+    statName: 4
     value: 5
     modType: 2
   - name: -Int
-    statName: 2
+    statName: 3
     value: -3
     modType: 2

@@ -118,7 +118,6 @@ public class PlayerCurrentStatsSO : ScriptableObject
             }
 
         }
-
         CalculateStats();
 
     }
@@ -136,7 +135,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
         foreach (StatTypes statType in Enum.GetValues(typeof(StatTypes)))
             if ((int)statType == (int)StatTypeTypes.infoStats) { continue; }
             else
-            { 
+            {
                 float statTotal = 0;
                 float percentageAddTotal = 0;
                 float percentageMultTotal = 0;
@@ -174,31 +173,39 @@ public class PlayerCurrentStatsSO : ScriptableObject
                     {
                         statTotal += calcInstanceStats[statType][statMod];
                     }
-                    
+
                 }
 
-                if (instanceStats[statType].calcInfo == StatCalculationType.flat)
-                {
-                    instanceStats[statType].value = statTotal;
-                    instanceStats[statType].value *= (((100 + percentageAddTotal)/100) * ((100 + percentageMultTotal) / 100));
-
-                    instanceStats[statType].value *= (((100 + skillPercentageAddTotal) / 100) * ((100 + skillPercentageMultTotal) / 100));
-                }
-                else if (instanceStats[statType].calcInfo == StatCalculationType.percentage)
-                {
-                    instanceStats[statType].value = statTotal + percentageAddTotal;
-                    instanceStats[statType].value *= ((100 + percentageMultTotal) / 100);
-
-                    instanceStats[statType].value += skillPercentageAddTotal;
-                    instanceStats[statType].value *= ((100 + skillPercentageMultTotal) / 100) ;
-                }
-
-
+                CalculateStatValues(statType, statTotal, percentageAddTotal, percentageMultTotal, skillPercentageAddTotal, skillPercentageMultTotal);
 
             }
     }
 
-    public float CalculateSecondaryStats(StatTypes statType)
+    private void CalculateStatValues(StatTypes statType, float statTotal, float percentageAddTotal, float percentageMultTotal, float skillPercentageAddTotal, float skillPercentageMultTotal)
+    {
+        if (instanceStats[statType].calcInfo == StatCalculationType.flat || instanceStats[statType].calcInfo == StatCalculationType.debuffFlat)
+        {
+
+            instanceStats[statType].value = statTotal;
+            if (instanceStats[statType].calcInfo == StatCalculationType.debuffFlat)
+            {
+                instanceStats[statType].value += CalculateDebuffFlatDamage(statType);
+            }
+            instanceStats[statType].value *= (((100 + percentageAddTotal) / 100) * ((100 + percentageMultTotal) / 100));
+
+            instanceStats[statType].value *= (((100 + skillPercentageAddTotal) / 100) * ((100 + skillPercentageMultTotal) / 100));
+        }
+        else if (instanceStats[statType].calcInfo == StatCalculationType.percentage || instanceStats[statType].calcInfo == StatCalculationType.debuffPercentage)
+        {
+            instanceStats[statType].value = statTotal + percentageAddTotal;
+            instanceStats[statType].value *= ((100 + percentageMultTotal) / 100);
+
+            instanceStats[statType].value += skillPercentageAddTotal;
+            instanceStats[statType].value *= ((100 + skillPercentageMultTotal) / 100);
+        }
+    }
+
+    private float CalculateSecondaryStats(StatTypes statType)
     {
         if ((int)statType == (int)StatTypes.critDamage)
         {
@@ -212,8 +219,13 @@ public class PlayerCurrentStatsSO : ScriptableObject
         return 0;
     }
 
-    public float CalculateSkillStats(StatTypes statTypes)
+    private float CalculateDebuffFlatDamage(StatTypes statType)
     {
+        if (statType == StatTypes.poisonDamage)
+        {
+            return (float)Math.Ceiling(GetCurrentStatValue(StatTypes.power) * (float).05 + GetCurrentStatValue(StatTypes.wisdom)*(float).05);
+        }
+
         return 0;
     }
 

@@ -15,7 +15,7 @@ using System;
         this.source = source;
         //Add an unlock variable to indicate if unlocked?...
     }
-
+    
     public StatModifier(float value, StatModTypes modType) : this (value, modType, (int)modType, null) { }
     public StatModifier(float value, StatModTypes modType, int order) : this(value, modType, order, null) { }
     public StatModifier(float value, StatModTypes modType, object source) : this(value, modType, (int)modType, source) { }
@@ -99,11 +99,13 @@ public enum StatTypes
     power=StatTypeTypes.secondaryStats,
     health,
     attackSpeed,
-    poisonDamage,
+
+    poisonDamage=StatTypeTypes.debuffBasedStats,
 
     critDamage=StatTypeTypes.secondaryPercentageBasedStats,
     critChance,
-    poisonChance,
+
+    poisonChance=StatTypeTypes.debuffPercentageBasedStats,
 
 
     className = StatTypeTypes.infoStats
@@ -138,8 +140,15 @@ public enum SkillStatTypes
 {
     numberOfAttacks,
     cooldown,
-    buffDurationNoAttacks,
+    buffDurationNumAttacks,
     buffDurationSeconds
+}
+
+public enum ActiveSkillType
+{
+    projectile,
+    buff,
+    debuff
 }
 
 

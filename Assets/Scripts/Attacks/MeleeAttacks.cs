@@ -8,20 +8,10 @@ public class MeleeAttacks : MonoBehaviour
 
     [SerializeField] private float projectileSpeed = 30;
     private Rigidbody2D rb;
-    private PlayerAttack playerAttack;
     private DamageInfo damageInfo;
-
-    private void Awake()
-    {
-        playerAttack = FindAnyObjectByType<PlayerAttack>();
-    }
 
     void Start()
     {
-        //calculating at beginning and not when it hits incase
-        // there are weird stat changes during the delay
-        //damageInfo = playerAttack.CalculateDamage();
-
         rb = GetComponent<Rigidbody2D>();
 
         rb.velocity = new Vector2(projectileSpeed, 0);
@@ -52,8 +42,10 @@ public class MeleeAttacks : MonoBehaviour
         }
     }
 
+    /*
     public static explicit operator MeleeAttacks(GameObject v)
     {
         throw new NotImplementedException();
     }
+    */
 }

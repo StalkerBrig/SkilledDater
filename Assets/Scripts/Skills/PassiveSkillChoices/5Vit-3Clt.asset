@@ -15,10 +15,10 @@ MonoBehaviour:
   skillName: 5Vit-3Clt
   statList:
   - name: +Vit
-    statName: 5
+    statName: 6
     value: 5
     modType: 2
   - name: -Clt
-    statName: 4
+    statName: 5
     value: -3
     modType: 2
