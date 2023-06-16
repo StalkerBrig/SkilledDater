@@ -141,7 +141,8 @@ public enum SkillStatTypes
     numberOfAttacks,
     cooldown,
     buffDurationNumAttacks,
-    buffDurationSeconds
+    buffDurationSeconds,
+    castingTime
 }
 
 public enum ActiveSkillType

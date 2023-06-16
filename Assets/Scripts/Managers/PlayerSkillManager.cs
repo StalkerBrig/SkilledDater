@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 
 
@@ -9,6 +10,8 @@ public class PlayerSkillManager : MonoBehaviour
     public ActiveSkillsSO activeSkill;
 
     [SerializeField] public bool isActive = false;
+
+    public static event Action<float> SetCastingTime;
 
     private static GameObject instance;
 
@@ -26,6 +29,8 @@ public class PlayerSkillManager : MonoBehaviour
         }
     }
 
+
+
     public void AddActiveSkill(ActiveSkillsSO newActiveSkill)
     {
         isActive = !isActive;
@@ -37,6 +42,15 @@ public class PlayerSkillManager : MonoBehaviour
         else
         {
             activeSkill = newActiveSkill;
+
+            foreach (ActiveSkillInput activeSkillData in activeSkill.activeStatList)
+            {
+                if (activeSkillData.statName == SkillStatTypes.castingTime)
+                {
+                    print(activeSkillData.value);
+                    SetCastingTime?.Invoke(activeSkillData.value);
+                }
+            }
         }
     }
 }

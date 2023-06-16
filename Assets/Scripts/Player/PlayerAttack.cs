@@ -12,7 +12,14 @@ public class PlayerAttack : MonoBehaviour
     float attackSpeedRate;
     float attackTimer;
 
+    float buffCastingTime;
+    float buffTimer;
+
     public static event Action OnAttack;
+    public static event Action OnBuff;
+
+    //TODO: Sorta jankey.. come back..
+    //[SerializeField] private PlayerSkillManager playerSkillManager;
 
     private StatManager statManager;
     private void Awake()
@@ -22,24 +29,26 @@ public class PlayerAttack : MonoBehaviour
 
     void Start()
     {
-
+        PlayerSkillManager.SetCastingTime += SetCastingTime;
         attackSpeedRate = statManager.GetStatValue(StatTypes.attackSpeed);
         attackTimer = 0;
+        buffCastingTime = 0;
+        buffTimer = 0;
     }
 
     void Update()
     {
         AttackProc();
+        BuffProc();
     }
 
     private void AttackProc()
     {
-        //TODO: Probably need to make this better.. Something like subscribing
-        //       or whatever they call it..
         attackSpeedRate = statManager.GetStatValue(StatTypes.attackSpeed);
 
         if (attackSpeedRate <= .001)
         {
+            attackTimer = 0;
             return;
         }
 
@@ -47,9 +56,32 @@ public class PlayerAttack : MonoBehaviour
 
         if (attackTimer >= attackSpeedRate)
         {
-            //Attack();
             OnAttack?.Invoke();
             attackTimer = 0;
+        }
+    }
+
+    private void SetCastingTime(float castingTime)
+    {
+        print("hmmmmmm");
+        buffCastingTime = castingTime;
+    }
+
+    private void BuffProc()
+    {
+
+        if (buffCastingTime <= .001)
+        {
+            buffTimer = 0;
+            return;
+        }
+
+        buffTimer += Time.deltaTime;
+
+        if (buffTimer >= buffCastingTime)
+        {
+            OnBuff?.Invoke();
+            buffTimer = 0;
         }
     }
 

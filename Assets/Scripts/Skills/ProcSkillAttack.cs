@@ -22,6 +22,8 @@ public class ProcSkillAttack : MonoBehaviour
     void Start()
     {
         PlayerAttack.OnAttack += ProcAttack;
+        PlayerAttack.OnBuff += ProcBuff;
+
     }
 
     private void Update()
@@ -59,7 +61,7 @@ public class ProcSkillAttack : MonoBehaviour
                 {
                     if (activeSkillData.statName == SkillStatTypes.buffDurationNumAttacks)
                     {
-                        buffAttack.SetBuffDuration(activeSkillData.value);
+                        //buffAttack.SetBuffDuration(activeSkillData.value);
                     }
                 }
 
@@ -69,7 +71,12 @@ public class ProcSkillAttack : MonoBehaviour
                 StartCoroutine(MultiAttackHelper());
             }
         }
-        
+
+    }
+
+    public void ProcBuff()
+    {
+        Debug.Log("YEAAAAAA");
     }
 
     IEnumerator MultiAttackHelper() 
