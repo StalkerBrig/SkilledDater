@@ -11,6 +11,7 @@ public class EnemyDamaged : MonoBehaviour, IDamageable
 
     public GameObject damageTextPrefab;
     public GameObject critDamageTextPrefab;
+    public GameObject poisonDamageTextPrefab;
 
 
     private float currentHealth;
@@ -26,6 +27,13 @@ public class EnemyDamaged : MonoBehaviour, IDamageable
     {
         currentHealth -= dmgInfo.amount;
         GameObject DamageTextInstance;
+
+        if (dmgInfo.isPoison)
+        {
+            DamageTextInstance = Instantiate(poisonDamageTextPrefab, transform);
+            DamageTextInstance.transform.GetChild(0).GetComponent<TextMeshPro>().text = dmgInfo.amount.ToString();
+
+        }
 
         if (dmgInfo.isCrit)
         {

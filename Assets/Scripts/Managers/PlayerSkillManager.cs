@@ -34,6 +34,7 @@ public class PlayerSkillManager : MonoBehaviour
     public void AddActiveSkill(ActiveSkillsSO newActiveSkill)
     {
         isActive = !isActive;
+        bool checkIfCasting = false;
 
         if (isActive == false)
         {
@@ -49,8 +50,15 @@ public class PlayerSkillManager : MonoBehaviour
                 {
                     print(activeSkillData.value);
                     SetCastingTime?.Invoke(activeSkillData.value);
+                    checkIfCasting = true;
                 }
             }
+            if (checkIfCasting == false)
+            {
+                SetCastingTime?.Invoke(0);
+            }
         }
+
+
     }
 }

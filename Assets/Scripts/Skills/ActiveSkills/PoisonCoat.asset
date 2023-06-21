@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037807c1910fafe45a2999ded40a92ed, type: 3}
   m_Name: PoisonCoat
   m_EditorClassIdentifier: 
-  activeSkillName: 
+  activeSkillName: Poison Coat
   skillGFX: {fileID: 6514240534218032031, guid: 8dcd9c21152887148b9e8256cf3032db, type: 3}
   skillType: 1
   activeStatList:
   - statName: 1
     value: 0.5
     modType: 6
-  - statName: 2
+  - statName: 3
     value: 5
     modType: 6
   - statName: 4

@@ -18,6 +18,8 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttack;
     public static event Action OnBuff;
 
+    private Dictionary<ActiveSkillsSO, float> buffList = new Dictionary<ActiveSkillsSO, float>();
+
     //TODO: Sorta jankey.. come back..
     //[SerializeField] private PlayerSkillManager playerSkillManager;
 
@@ -63,7 +65,6 @@ public class PlayerAttack : MonoBehaviour
 
     private void SetCastingTime(float castingTime)
     {
-        print("hmmmmmm");
         buffCastingTime = castingTime;
     }
 
@@ -91,6 +92,27 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
+    public void BuffDamage(ActiveSkillsSO activeSkillSO = null)
+    {
+        if (activeSkillSO != null)
+        {
+            if (buffList.ContainsKey(activeSkillSO) == false)
+            {
+                statManager.AddPassiveSkill(activeSkillSO.statList);
+                print("ADDED POISON!");
+
+            }
+            //TODO: Probably should go back and change this so it isn't... this foreach stuff
+            foreach (ActiveSkillInput activeSkillData in activeSkillSO.activeStatList)
+            {
+                if (activeSkillData.statName == SkillStatTypes.buffDurationSeconds)
+                {
+                    buffList[activeSkillSO] = activeSkillData.value;
+                }
+            }
+            
+        }
+    }
 
     public DamageInfo CalculateDamage(ActiveSkillsSO activeSkillSO = null)
     {
@@ -103,6 +125,8 @@ public class PlayerAttack : MonoBehaviour
         float cur_critChance = statManager.GetStatValue(StatTypes.critChance);
         float cur_critDamage = statManager.GetStatValue(StatTypes.critDamage);
 
+        float curPoisonChance = statManager.GetStatValue(StatTypes.poisonChance);
+
         if (activeSkillSO != null)
         {
             statManager.RemovePassiveSkill(activeSkillSO.statList);
@@ -114,6 +138,7 @@ public class PlayerAttack : MonoBehaviour
 
         bool is_crit = false;
         float check_if_crit = Random.Range((float)0.0, (float)100.0);
+
 
         if (cur_critChance >= check_if_crit)
         {
@@ -129,6 +154,15 @@ public class PlayerAttack : MonoBehaviour
             final_damage = power_range;
         }
 
-        return new DamageInfo((int)final_damage, is_crit);
+        bool isPoison = false;
+        float checkIfPoison = Random.Range((float)0.0, (float)100.0);
+
+        if (curPoisonChance >= checkIfPoison)
+        {
+            isPoison = true;
+        }
+
+
+        return new DamageInfo((int)final_damage, is_crit, isPoison);
     }
 }

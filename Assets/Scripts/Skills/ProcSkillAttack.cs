@@ -54,19 +54,7 @@ public class ProcSkillAttack : MonoBehaviour
     {
         if (projectile != null && this != null)
         {
-            if (playerSkillManager.activeSkill.skillType == ActiveSkillType.buff)
-            {
-                BuffAttacks buffAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<BuffAttacks>();
-                foreach (ActiveSkillInput activeSkillData in playerSkillManager.activeSkill.activeStatList)
-                {
-                    if (activeSkillData.statName == SkillStatTypes.buffDurationNumAttacks)
-                    {
-                        //buffAttack.SetBuffDuration(activeSkillData.value);
-                    }
-                }
-
-            }
-            else
+            if (playerSkillManager.activeSkill.skillType == ActiveSkillType.projectile)
             {
                 StartCoroutine(MultiAttackHelper());
             }
@@ -76,7 +64,21 @@ public class ProcSkillAttack : MonoBehaviour
 
     public void ProcBuff()
     {
-        Debug.Log("YEAAAAAA");
+        //TODO: Probably will want to create a new function for the playerAttack.Attack for buffs.. sometime..
+        if (projectile != null && this != null)
+        {
+            BuffAttacks buffAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<BuffAttacks>();
+            playerAttack.BuffDamage(playerSkillManager.activeSkill);
+
+            foreach (ActiveSkillInput activeSkillData in playerSkillManager.activeSkill.activeStatList)
+            {
+                if (activeSkillData.statName == SkillStatTypes.buffDurationSeconds)
+                {
+                    buffAttack.SetBuffDuration(activeSkillData.value);
+                }
+            }
+        }
+
     }
 
     IEnumerator MultiAttackHelper() 
