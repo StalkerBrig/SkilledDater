@@ -18,7 +18,9 @@ public class PlayerAttack : MonoBehaviour
     public static event Action OnAttack;
     public static event Action OnBuff;
 
-    private Dictionary<ActiveSkillsSO, float> buffList = new Dictionary<ActiveSkillsSO, float>();
+    private List<ActiveSkillsSO> emptyActiveSkillSOList = new List<ActiveSkillsSO>();
+
+    private Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>> buffList = new Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>>();
 
     //TODO: Sorta jankey.. come back..
     //[SerializeField] private PlayerSkillManager playerSkillManager;
@@ -42,6 +44,7 @@ public class PlayerAttack : MonoBehaviour
     {
         AttackProc();
         BuffProc();
+        CheckBuffTimers();
     }
 
     private void AttackProc()
@@ -86,6 +89,53 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private void CheckBuffTimers()
+    {
+        List<ActiveSkillsSO> buffsToRemove = emptyActiveSkillSOList;
+
+        foreach (ActiveSkillsSO curBuff in buffList.Keys)
+        {
+            if (buffList[curBuff].ContainsKey(SkillStatTypes.buffDurationSeconds))
+            {
+                if (Time.time >= buffList[curBuff][SkillStatTypes.buffDurationSeconds])
+                {
+                    if (buffsToRemove == emptyActiveSkillSOList)
+                    {
+                        buffsToRemove = new List<ActiveSkillsSO>();
+                    }
+
+                    buffsToRemove.Add(curBuff);
+
+                }
+            }
+            if (buffList[curBuff].ContainsKey(SkillStatTypes.buffDurationNumAttacks))
+            {
+                if (Time.time >= buffList[curBuff][SkillStatTypes.buffDurationSeconds])
+                {
+                    if (buffsToRemove == emptyActiveSkillSOList)
+                    {
+                        buffsToRemove = new List<ActiveSkillsSO>();
+                    }
+
+                    buffsToRemove.Add(curBuff);
+
+                }
+            }
+
+        }
+
+        if (buffsToRemove != emptyActiveSkillSOList)
+        {
+            foreach (ActiveSkillsSO removeBuff in buffsToRemove)
+            {
+                statManager.RemovePassiveSkill(removeBuff.statList);
+                buffList.Remove(removeBuff);
+                print("Removed buff!");
+            }
+
+        }
+    }
+
     public GameObject Attack(GameObject projectile, Transform attackSpawner)
     {
         return Instantiate(projectile, attackSpawner.position, attackSpawner.rotation);
@@ -102,14 +152,25 @@ public class PlayerAttack : MonoBehaviour
                 print("ADDED POISON!");
 
             }
-            //TODO: Probably should go back and change this so it isn't... this foreach stuff
+
             foreach (ActiveSkillInput activeSkillData in activeSkillSO.activeStatList)
             {
+                if (!buffList.ContainsKey(activeSkillSO))
+                {
+                    buffList[activeSkillSO] = new Dictionary<SkillStatTypes, float>();
+                }
+
                 if (activeSkillData.statName == SkillStatTypes.buffDurationSeconds)
                 {
-                    buffList[activeSkillSO] = activeSkillData.value;
+                    buffList[activeSkillSO][SkillStatTypes.buffDurationSeconds] = Time.time + activeSkillData.value;
+                }
+                if (activeSkillData.statName == SkillStatTypes.buffDurationNumAttacks)
+                {
+                    buffList[activeSkillSO][SkillStatTypes.buffDurationNumAttacks] = activeSkillData.value;
                 }
             }
+
+
             
         }
     }

@@ -48,7 +48,6 @@ public class PlayerSkillManager : MonoBehaviour
             {
                 if (activeSkillData.statName == SkillStatTypes.castingTime)
                 {
-                    print(activeSkillData.value);
                     SetCastingTime?.Invoke(activeSkillData.value);
                     checkIfCasting = true;
                 }
