@@ -11,10 +11,13 @@ public class ProcSkillAttack : MonoBehaviour
     [SerializeField] private PlayerSkillManager playerSkillManager;
     private int numAttacks = 1;
     private Transform attackSpawner;
+    private DamageCalculators damageCalculator;
 
     private void Awake()
     {
         playerAttack = FindObjectOfType<PlayerAttack>();
+        damageCalculator = FindObjectOfType<DamageCalculators>();
+
 
         attackSpawner = transform.Find("AttackPosition").transform;
     }
@@ -68,7 +71,7 @@ public class ProcSkillAttack : MonoBehaviour
         if (projectile != null && this != null)
         {
             BuffAttacks buffAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<BuffAttacks>();
-            playerAttack.BuffDamage(playerSkillManager.activeSkill);
+            damageCalculator.BuffDamage(playerSkillManager.activeSkill);
 
             foreach (ActiveSkillInput activeSkillData in playerSkillManager.activeSkill.activeStatList)
             {
@@ -89,8 +92,9 @@ public class ProcSkillAttack : MonoBehaviour
             {
                 
                 MeleeAttacks meleeAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<MeleeAttacks>();
-                meleeAttack.SetDamage(playerAttack.CalculateDamage(playerSkillManager.activeSkill));
+                meleeAttack.SetDamage(damageCalculator.CalculateDamage(playerSkillManager.activeSkill));
 
+                //TODO: Don't have this hard coded probably?
                 yield return new WaitForSeconds(.03f);
 
             }

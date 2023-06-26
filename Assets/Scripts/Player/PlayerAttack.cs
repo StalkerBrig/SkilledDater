@@ -20,7 +20,10 @@ public class PlayerAttack : MonoBehaviour
 
     private List<ActiveSkillsSO> emptyActiveSkillSOList = new List<ActiveSkillsSO>();
 
-    private Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>> buffList = new Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>>();
+    //private Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>> buffList = new Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>>();
+    [SerializeField] private BuffListSO buffListSO;
+    Dictionary<ActiveSkillsSO, Dictionary<SkillStatTypes, float>> buffList;
+
 
     //TODO: Sorta jankey.. come back..
     //[SerializeField] private PlayerSkillManager playerSkillManager;
@@ -29,6 +32,8 @@ public class PlayerAttack : MonoBehaviour
     private void Awake()
     {
         statManager = FindObjectOfType<StatManager>();
+        buffList = buffListSO.buffList;
+
     }
 
     void Start()
@@ -142,88 +147,4 @@ public class PlayerAttack : MonoBehaviour
     }
 
 
-    public void BuffDamage(ActiveSkillsSO activeSkillSO = null)
-    {
-        if (activeSkillSO != null)
-        {
-            if (buffList.ContainsKey(activeSkillSO) == false)
-            {
-                statManager.AddPassiveSkill(activeSkillSO.statList);
-                print("ADDED POISON!");
-
-            }
-
-            foreach (ActiveSkillInput activeSkillData in activeSkillSO.activeStatList)
-            {
-                if (!buffList.ContainsKey(activeSkillSO))
-                {
-                    buffList[activeSkillSO] = new Dictionary<SkillStatTypes, float>();
-                }
-
-                if (activeSkillData.statName == SkillStatTypes.buffDurationSeconds)
-                {
-                    buffList[activeSkillSO][SkillStatTypes.buffDurationSeconds] = Time.time + activeSkillData.value;
-                }
-                if (activeSkillData.statName == SkillStatTypes.buffDurationNumAttacks)
-                {
-                    buffList[activeSkillSO][SkillStatTypes.buffDurationNumAttacks] = activeSkillData.value;
-                }
-            }
-
-
-            
-        }
-    }
-
-    public DamageInfo CalculateDamage(ActiveSkillsSO activeSkillSO = null)
-    {
-        if (activeSkillSO != null)
-        {
-            statManager.AddPassiveSkill(activeSkillSO.statList);
-        }
-
-        float cur_power = (int)statManager.GetStatValue(StatTypes.power);
-        float cur_critChance = statManager.GetStatValue(StatTypes.critChance);
-        float cur_critDamage = statManager.GetStatValue(StatTypes.critDamage);
-
-        float curPoisonChance = statManager.GetStatValue(StatTypes.poisonChance);
-
-        if (activeSkillSO != null)
-        {
-            statManager.RemovePassiveSkill(activeSkillSO.statList);
-        }
-
-
-        float power_range = Random.Range(cur_power * (float).70, cur_power * (float)1.30 + 1);
-        float final_damage;
-
-        bool is_crit = false;
-        float check_if_crit = Random.Range((float)0.0, (float)100.0);
-
-
-        if (cur_critChance >= check_if_crit)
-        {
-            is_crit = true;
-        }
-
-        if (is_crit)
-        {
-            final_damage = power_range * (1+cur_critDamage/100);
-        }
-        else
-        {
-            final_damage = power_range;
-        }
-
-        bool isPoison = false;
-        float checkIfPoison = Random.Range((float)0.0, (float)100.0);
-
-        if (curPoisonChance >= checkIfPoison)
-        {
-            isPoison = true;
-        }
-
-
-        return new DamageInfo((int)final_damage, is_crit, isPoison);
-    }
 }

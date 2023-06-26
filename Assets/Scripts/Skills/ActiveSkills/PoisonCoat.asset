@@ -32,5 +32,5 @@ MonoBehaviour:
     modType: 7
   - name: Poison Damage
     statName: 20000
-    value: 100
-    modType: 5
+    value: 10
+    modType: 6
