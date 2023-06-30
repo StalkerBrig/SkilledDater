@@ -223,7 +223,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
     {
         if (statType == StatTypes.poisonDamage)
         {
-            return (float)Math.Ceiling(GetCurrentStatValue(StatTypes.power) * (float).05 + GetCurrentStatValue(StatTypes.wisdom)*(float).05);
+            return (float)Math.Ceiling(GetCurrentStatValue(StatTypes.natureDamage) * (float).05 + GetCurrentStatValue(StatTypes.wisdom)*(float).05);
         }
 
         return 0;

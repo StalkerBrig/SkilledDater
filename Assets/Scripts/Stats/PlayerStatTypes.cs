@@ -95,17 +95,55 @@ public enum StatTypes
     clout,
     vitality,
     
-
-    power=StatTypeTypes.secondaryStats,
-    health,
+    maxHealth = StatTypeTypes.secondaryStats,
     attackSpeed,
+    castSpeed,
+    cooldownSpeed,
+    defense,
+    dodge,
+    fortify,
 
-    poisonDamage=StatTypeTypes.debuffBasedStats,
+    physicalDamage,
+    meleeDamage,
+    rangedDamage,
+    thornsDamage,
+
+    arcaneDamage,
+    fireDamage,
+    iceDamage,
+    lightningDamage,
+
+    divineDamage,
+    natureDamage,
+    holyDamage,
+    voidDamage,
+
+    ailmentDamage=StatTypeTypes.debuffBasedStats,
+    bleedDamage,
+    burnDamage,
+    sparkDamage,
+    poisonDamage,
+
+    debuffPotency,
+    chilledPotency,
+    guidancePotency,
+    voidPotency,
 
     critDamage=StatTypeTypes.secondaryPercentageBasedStats,
     critChance,
+    dodgeChance,
+    fortifyChance,
 
-    poisonChance=StatTypeTypes.debuffPercentageBasedStats,
+    ailmentChance = StatTypeTypes.debuffPercentageBasedStats,
+    bleedChance,
+    burnChance,
+    sparkChance,
+    poisonChance,
+
+    debuffChance,
+    chilledChance,
+    guidanceChance,
+    voidChance,
 
 
     className = StatTypeTypes.infoStats

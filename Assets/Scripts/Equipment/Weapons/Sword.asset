@@ -15,10 +15,10 @@ MonoBehaviour:
   equipmentName: Sword
   statList:
   - name: Power
-    statName: 10000
+    statName: 10007
     value: 10
     modType: 2
   - name: AttackSpeed
-    statName: 10002
+    statName: 10001
     value: 1.25
     modType: 2

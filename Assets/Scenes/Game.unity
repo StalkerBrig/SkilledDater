@@ -1936,7 +1936,7 @@ GameObject:
   - component: {fileID: 1116095779}
   - component: {fileID: 1116095778}
   m_Layer: 0
-  m_Name: Text_Display_power
+  m_Name: Text_Display_physicalDamage
   m_TagString: DisplayStat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1959,7 +1959,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 305, y: 434}
+  m_AnchoredPosition: {x: 309, y: 434}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1116095778
@@ -2071,7 +2071,7 @@ GameObject:
   - component: {fileID: 1142044545}
   - component: {fileID: 1142044544}
   m_Layer: 0
-  m_Name: Text_Display_health
+  m_Name: Text_Display_maxHealth
   m_TagString: DisplayStat
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2206,7 +2206,7 @@ GameObject:
   - component: {fileID: 1189510012}
   - component: {fileID: 1189510011}
   m_Layer: 5
-  m_Name: StatUIHealth
+  m_Name: StatUIMaxHealth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3396,6 +3396,7 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 3229465073576304071, guid: dc59b15b564a24a418722892d60efe57, type: 3}
   critDamageTextPrefab: {fileID: 3229465073576304071, guid: 74677c96fb9685a4c92e8d783e9a76c8, type: 3}
   poisonDamageTextPrefab: {fileID: 3596627653768171037, guid: 10dba07f343315a449e890dd9fc1ce37, type: 3}
+  currentHealth: 0
 --- !u!1 &1737278964
 GameObject:
   m_ObjectHideFlags: 0
@@ -3408,7 +3409,7 @@ GameObject:
   - component: {fileID: 1737278967}
   - component: {fileID: 1737278966}
   m_Layer: 5
-  m_Name: StatUIPower
+  m_Name: StatUIPhysicalDamage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3454,7 +3455,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Power:'
+  m_text: 'P Dmg:'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

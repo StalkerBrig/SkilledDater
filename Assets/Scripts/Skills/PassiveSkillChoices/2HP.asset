@@ -15,6 +15,6 @@ MonoBehaviour:
   skillName: Add2HP
   statList:
   - name: HP
-    statName: 10001
+    statName: 10000
     value: 2
     modType: 2

@@ -61,7 +61,7 @@ public class BaseStatsSO : ScriptableObject
 
     public void InputBaseStats(Dictionary<StatTypes, Dictionary<StatModTypes, float>> calcInstanceStats)
     {
-        calcInstanceStats[StatTypes.health][StatModTypes.baseStats] = health;
+        calcInstanceStats[StatTypes.maxHealth][StatModTypes.baseStats] = health;
         calcInstanceStats[StatTypes.strength][StatModTypes.baseStats] = strength;
         calcInstanceStats[StatTypes.agility][StatModTypes.baseStats] = agility;
         calcInstanceStats[StatTypes.intelligence][StatModTypes.baseStats] = intelligence;
