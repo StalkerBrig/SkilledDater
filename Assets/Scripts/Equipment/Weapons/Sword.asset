@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   equipmentName: Sword
   statList:
-  - name: Power
-    statName: 10007
+  - name: PhysicalDamage
+    statName: 1007
     value: 10
     modType: 2
   - name: AttackSpeed
-    statName: 10001
-    value: 1.25
+    statName: 1001
+    value: 1
     modType: 2

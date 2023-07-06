@@ -46,46 +46,53 @@ public enum StatCalculationType
     percentage,
     debuffFlat,
     debuffPercentage,
+    //NOTE: Bool based stats will use 0 for false 1 for true
+    boolBased,
     info
 }
+
+//CHANGE THE ORDERS ON THESE AND WE ALL DIEEEEEEE AHHHHHHHHHHHHHHHHHH
 public enum StatTypeTypes
 {
     flatBasedStats = 0,
 
 
     primaryStats=1,
-    primaryStatsEnd=9999,
+    primaryStatsEnd=999,
 
-    secondaryStats=10000,
-    secondaryStatsEnd=19999,
+    secondaryStats=1000,
+    secondaryStatsEnd=1999,
 
-    debuffBasedStats=20000,
-    debuffBasedStatsEnd=29998,
+    debuffBasedStats=2000,
+    debuffBasedStatsEnd=2999,
+
     
 
     flatBasedStatsEnd=29999,
 
-
-
     percentageBasedStats=30000,
 
-
     secondaryPercentageBasedStats=30001,
-    secondaryPercentageBasedStatsEnd=39999,
+    secondaryPercentageBasedStatsEnd=30999,
 
-    debuffPercentageBasedStats=40000,
-    debuffPercentageBasedStatsEnd=49999,
+    debuffPercentageBasedStats=31000,
+    debuffPercentageBasedStatsEnd=31999,
 
-
-    percentageBasedStatsEnd=99998,
+    percentageBasedStatsEnd=69999,
 
 
 
     nonInfoStatsEnd = 99999,
 
-    infoStats=100000,
-    infoStatsEnd=199999,
+    //NOTE: Bool based stats will use 0 for false 1 for true
+    boolStats = 100000,
+    boolStatsEnd = 102999,
+    
+    infoStats=103000,
+    infoStatsEnd=103999
 }
+
+//CHANGE THE ORDERS ON THESE AND WE ALL DIEEEEEEE AHHHHHHHHHHHHHHHHHH
 public enum StatTypes
 {
     strength=StatTypeTypes.primaryStats,
@@ -116,7 +123,9 @@ public enum StatTypes
     divineDamage,
     natureDamage,
     holyDamage,
-    voidDamage,
+    darkDamage,
+
+
 
     ailmentDamage=StatTypeTypes.debuffBasedStats,
     bleedDamage,
@@ -145,8 +154,39 @@ public enum StatTypes
     guidanceChance,
     voidChance,
 
+    //NOTE: Bool based stats will use 0 for false 1 for true
+    canPhysicalDamage = StatTypeTypes.boolStats,
+    canMeleeDamage,
+    canRangedDamage,
+    canThornsDamage,
 
-    className = StatTypeTypes.infoStats
+    canArcaneDamage,
+    canFireDamage,
+    canIceDamage,
+    canLightningDamage,
+
+    canDivineDamage,
+    canNatureDamage,
+    canHolyDamage,
+    canVoidDamage,
+
+    canAilment,
+    canBleed,
+    canBurn,
+    canSpark,
+    canPoison,
+
+    canDebuff,
+    canChilled,
+    canGuidance,
+    canVoid,
+
+    canCrit,
+    canDodge,
+    canFortify,
+
+    className = StatTypeTypes.infoStats,
+
 }
 
 public enum StatModTypes
@@ -163,6 +203,10 @@ public enum StatModTypes
     skillPercentAdd,
     skillPercentMult,
 
+    //NOTE: Bool based stats will use 0 for false 1 for true
+    boolBased = StatTypeTypes.boolStats,
+    boolCannotBe,
+    boolHasToBe,
     info = StatTypeTypes.infoStats
 }
 

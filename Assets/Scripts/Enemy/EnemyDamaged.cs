@@ -59,11 +59,13 @@ public class EnemyDamaged : MonoBehaviour, IDamageable
 
         if (dmgInfo.isCrit)
         {
-            DamageTextInstance = Instantiate(critDamageTextPrefab, transform);
+            Vector3 randomPosition = new Vector3(transform.position.x + Random.Range(-2f, 2f), transform.position.y + Random.Range(0f, 2f), transform.position.z);
+            DamageTextInstance = Instantiate(critDamageTextPrefab, randomPosition, Quaternion.identity);
         }
         else
         {
-            DamageTextInstance = Instantiate(damageTextPrefab, transform);
+            Vector3 randomPosition = new Vector3(transform.position.x + Random.Range(-2f, 2f), transform.position.y + Random.Range(0f, 2f), transform.position.z);
+            DamageTextInstance = Instantiate(damageTextPrefab, randomPosition, Quaternion.identity);
         }
 
         DamageTextInstance.transform.GetChild(0).GetComponent<TextMeshPro>().text = dmgInfo.amount.ToString();

@@ -47,7 +47,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
                     tmp.calcInfo = StatCalculationType.percentage;
                 }
             }
-            else
+            else if ((StatTypeTypes)key >= StatTypeTypes.flatBasedStats && (StatTypeTypes)key < StatTypeTypes.flatBasedStatsEnd)
             {
                 if ((StatTypeTypes)key >= StatTypeTypes.debuffBasedStats && (StatTypeTypes)key < StatTypeTypes.debuffBasedStatsEnd)
                 {
@@ -58,12 +58,22 @@ public class PlayerCurrentStatsSO : ScriptableObject
                     tmp.calcInfo = StatCalculationType.flat;
                 }
             }
+            else if ((StatTypeTypes)key >= StatTypeTypes.boolStats && (StatTypeTypes)key < StatTypeTypes.boolStatsEnd)
+            {
+                tmp.calcInfo = StatCalculationType.boolBased;
+            }
+            else if ((StatTypeTypes)key >= StatTypeTypes.infoStats && (StatTypeTypes)key < StatTypeTypes.infoStatsEnd)
+            {
+                tmp.calcInfo = StatCalculationType.info;
+            }
 
             instanceStats[key] = tmp;
             calcInstanceStats[key] = new Dictionary<StatModTypes, float>();
 
             foreach (StatModTypes modType in Enum.GetValues(typeof(StatModTypes)))
             {
+                //NOTE: Since this dictionary can only use floats,
+                // bool based variables will just use 0 for false, 1 for true
                 calcInstanceStats[key][modType] = (int)0;
             }
             
@@ -129,7 +139,6 @@ public class PlayerCurrentStatsSO : ScriptableObject
     }
 
 
-    //TODO: Need to come back and set up debuff damage/etc
     public void CalculateStats()
     {
         foreach (StatTypes statType in Enum.GetValues(typeof(StatTypes)))
@@ -142,12 +151,32 @@ public class PlayerCurrentStatsSO : ScriptableObject
                 float skillPercentageAddTotal = 0;
                 float skillPercentageMultTotal = 0;
 
+                float boolBasedValue = 0;
+                bool boolCannotBe = false;
+                bool boolHasToBe = false;
+
                 percentageAddTotal += CalculateSecondaryStats(statType);
 
                 foreach (StatModTypes statMod in Enum.GetValues(typeof(StatModTypes)))
                 {
 
                     if ((int)statMod == (int)StatTypeTypes.infoStats) { continue; }
+                    if ((int)statMod >= (int)StatTypeTypes.boolStats && (int)statMod < (int)StatTypeTypes.boolStatsEnd)
+                    {
+                        if (statMod == StatModTypes.boolCannotBe && calcInstanceStats[statType][statMod] > 0)
+                        {
+                            boolCannotBe = true;
+                        }
+                        else if (statMod == StatModTypes.boolHasToBe && calcInstanceStats[statType][statMod] > 0)
+                        {
+                            boolHasToBe = true;
+                        }
+                        else
+                        {
+                            boolBasedValue += calcInstanceStats[statType][statMod];
+                        }
+                    }
+
 
                     else if (statMod == StatModTypes.percentAdd || statMod == StatModTypes.percentBase)
                     {
@@ -177,7 +206,7 @@ public class PlayerCurrentStatsSO : ScriptableObject
                 }
 
                 CalculateStatValues(statType, statTotal, percentageAddTotal, percentageMultTotal, skillPercentageAddTotal, skillPercentageMultTotal);
-
+                CalculateBoolValues(statType, boolBasedValue, boolCannotBe, boolHasToBe);
             }
     }
 
@@ -217,6 +246,33 @@ public class PlayerCurrentStatsSO : ScriptableObject
         }
 
         return 0;
+    }
+
+    private void CalculateBoolValues(StatTypes statType, float boolBasedValue, bool boolCannotBe, bool boolHasToBe)
+    {
+        if (instanceStats[statType].calcInfo == StatCalculationType.boolBased)
+        {
+            if (boolCannotBe && boolHasToBe)
+            {
+                //TODO: Might want to verify this should be true for this case...
+                instanceStats[statType].value = 1;
+            }
+            else if (boolCannotBe)
+            {
+                instanceStats[statType].value = 0;
+            }
+            else if (boolHasToBe)
+            {
+                instanceStats[statType].value = 1;
+            }
+            else
+            {
+                if (boolBasedValue > 0) instanceStats[statType].value = 1;
+                if (boolBasedValue == 0) instanceStats[statType].value = 0;
+            }
+            
+        }
+
     }
 
     private float CalculateDebuffFlatDamage(StatTypes statType)

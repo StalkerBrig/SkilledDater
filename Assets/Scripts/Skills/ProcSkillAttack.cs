@@ -86,18 +86,21 @@ public class ProcSkillAttack : MonoBehaviour
 
     IEnumerator MultiAttackHelper() 
     {
+        var tmpProjectile = Instantiate(projectile);
+
         for (int i = 0; i < numAttacks; i++)
         {
             if (attackSpawner != null)
             {
-                
-                MeleeAttacks meleeAttack = playerAttack.Attack(projectile, attackSpawner).GetComponent<MeleeAttacks>();
+                MeleeAttacks meleeAttack = playerAttack.Attack(tmpProjectile, attackSpawner).GetComponent<MeleeAttacks>();
                 meleeAttack.SetDamage(damageCalculator.CalculateDamage(playerSkillManager.activeSkill));
 
-                //TODO: Don't have this hard coded probably?
+                //TODO: Don't have the time hard coded probably?
                 yield return new WaitForSeconds(.03f);
 
             }
         }
+
+        Destroy(tmpProjectile);
     }
 }

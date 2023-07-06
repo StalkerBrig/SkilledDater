@@ -14,12 +14,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activeSkillName: Double Strike
   skillGFX: {fileID: 8175151300305731616, guid: 06bf0088a1372ab4ba41e3b7db9b77bf, type: 3}
+  skillType: 0
   activeStatList:
   - statName: 0
     value: 4
     modType: 6
   statList:
   - name: DamageIncrease
-    statName: 10000
-    value: 200
+    statName: 1007
+    value: 100
     modType: 7

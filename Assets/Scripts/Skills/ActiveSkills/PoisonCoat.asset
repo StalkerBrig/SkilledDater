@@ -27,10 +27,14 @@ MonoBehaviour:
     modType: 6
   statList:
   - name: Poison Chance
-    statName: 40004
+    statName: 31004
     value: 100
     modType: 7
   - name: Poison Damage
-    statName: 20004
+    statName: 1016
     value: 10
     modType: 6
+  - name: Can Poison
+    statName: 100016
+    value: 1
+    modType: 100000
